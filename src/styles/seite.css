@@ -245,3 +245,15 @@ form input[type="email"] { font: inherit; padding: 10px 12px; border: 1px solid 
 .honig { position: absolute; left: -9999px; }
 .gesendet { display: flex; flex-direction: column; gap: 8px; border-left: 4px solid var(--blau); background: var(--blau-hell); padding: 16px; }
 form button:disabled { opacity: 0.6; cursor: default; }
+
+/* Handy: Menü passt ohne seitliches Wischen, Kennzahlen zweispaltig, Firmengeschichte untereinander */
+@media (max-width: 900px) {
+  .kopf nav { overflow-x: visible; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; padding-bottom: 0; }
+  .kopf nav a { font-size: 0.86rem; padding: 4px 0; }
+}
+@media (max-width: 480px) { .kopf nav { flex-wrap: nowrap; gap: 0; } .kopf nav a { font-size: clamp(0.66rem, 3.3vw, 0.86rem); white-space: nowrap; } }
+@media (max-width: 700px) {
+  .zahlen { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .zahlen dt { font-size: 1.9rem; }
+  .stationen li { grid-template-columns: 1fr; gap: 2px; }
+}
