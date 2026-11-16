@@ -78,7 +78,7 @@ export function initKarte({ container, canvas, labels, orte, onPick }) {
     requestAnimationFrame(loop);
     if (!sichtbar || !dirty) return; dirty = false;
     welt.rotation.y = yaw;
-    const d = Math.max(12.6, 21 / cam.aspect);
+    const d = Math.max(12.6, 17 / cam.aspect);
     cam.position.set(0, d * 0.8, d * 0.6); cam.lookAt(0, 0, 0.35);
     renderer.render(scene, cam);
     const w = container.clientWidth, h = container.clientHeight;
