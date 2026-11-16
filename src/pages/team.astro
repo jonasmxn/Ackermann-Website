@@ -1,0 +1,57 @@
+---
+import Rahmen from '../layouts/Rahmen.astro';
+import u from '../content/unternehmen.json';
+import kontakt from '../content/kontakt.json';
+
+interface Mitglied { name: string; aufgabe: string; foto?: string; text?: string; telefon?: string; email?: string; reihenfolge: number; }
+const dateien = import.meta.glob('../content/team/*.json', { eager: true });
+const team: Mitglied[] = Object.values(dateien).map((m: any) => m.default ?? m).sort((a, b) => a.reihenfolge - b.reihenfolge);
+const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '');
+---
+<Rahmen titel="Team · Ackermann Bau-GmbH" beschreibung={u.team_text}>
+  <article class="projekt">
+    <div class="innen">
+      <p class="pfad"><a href="/">Startseite</a> / Team</p>
+      <div class="text">
+        <h1>{u.team_titel}</h1>
+        <p class="einleitung">{u.team_text}</p>
+      </div>
+    </div>
+    <div class="innen">
+      {team.length > 0 ? (
+        <div class="team">
+          {team.map((m) => (
+            <article>
+              {m.foto
+                ? <img src={m.foto} alt={m.name} loading="lazy" width="480" height="600">
+                : <div class="ohne-foto" aria-hidden="true">{m.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('')}</div>}
+              <h2>{m.name}</h2>
+              <p class="aufgabe">{m.aufgabe}</p>
+              {m.text && <p>{m.text}</p>}
+              {(m.telefon || m.email) && (
+                <p class="draht">
+                  {m.telefon && <span>{m.telefon}</span>}
+                  {m.email && <a href={`mailto:${m.email}`}>{m.email}</a>}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="leer">{u.team_leer}</p>
+      )}
+    </div>
+  </article>
+
+  <section class="block grau">
+    <div class="innen">
+      <div class="titel">
+        <p class="marke">Kontakt</p>
+        <h2>Sprechen Sie uns an</h2>
+        <p>{kontakt.zeiten}</p>
+        <p class="gross"><a href={telLink}>{kontakt.telefon}</a></p>
+        <a class="knopf voll" href="/#kontakt">Bauvorhaben anfragen</a>
+      </div>
+    </div>
+  </section>
+</Rahmen>

@@ -257,3 +257,19 @@ form button:disabled { opacity: 0.6; cursor: default; }
   .zahlen dt { font-size: 1.9rem; }
   .stationen li { grid-template-columns: 1fr; gap: 2px; }
 }
+
+/* Team-Seite */
+.team { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 32px 24px; }
+.team article { gap: 4px; }
+.team img, .ohne-foto { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--grau); margin-bottom: 8px; }
+.ohne-foto { display: grid; place-items: center; font: 600 3rem var(--display); color: var(--leise); }
+.team h2 { font-size: 1.25rem; }
+.team .aufgabe { color: var(--blau); font-weight: 500; }
+.team .draht { display: flex; flex-direction: column; font-size: 0.93rem; margin-top: 4px; }
+.leer { border-left: 4px solid var(--linie); padding: 10px 14px; color: var(--leise); }
+/* Rechtstext: Überschriften der übernommenen Datenschutzerklärung */
+.rechtstext h3 { font-size: 1.08rem; margin-top: 14px; }
+.rechtstext h4 { font: 600 1rem var(--body); margin: 8px 0 0; }
+.rechtstext a { overflow-wrap: anywhere; }
+/* Sechs Menüpunkte in einer Zeile auf dem Handy */
+@media (max-width: 480px) { .kopf nav a { font-size: clamp(0.62rem, 2.95vw, 0.86rem); } }

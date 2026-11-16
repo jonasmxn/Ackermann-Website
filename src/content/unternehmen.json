@@ -17,7 +17,9 @@
       "text": "Dipl.-Ing. Oliver Ackermann steigt ein."
     }
   ],
-  "team": [],
+  "team_titel": "Unser Team",
+  "team_text": "Die Menschen hinter der Ackermann Bau-GmbH.",
+  "team_leer": "Unser Team stellen wir Ihnen hier in Kürze vor.",
   "partner": [
     {
       "name": "Hamann Baustoffe",

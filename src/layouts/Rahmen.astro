@@ -8,6 +8,7 @@ import '@fontsource/ibm-plex-sans/600.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/seite.css';
 import kontakt from '../content/kontakt.json';
+import { live, adresse } from '../daten/live';
 
 interface Props { titel: string; beschreibung: string; }
 const { titel, beschreibung } = Astro.props;
@@ -20,7 +21,7 @@ const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '')
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{titel}</title>
   <meta name="description" content={beschreibung}>
-  <meta name="robots" content="noindex">
+  {live ? <link rel="canonical" href={adresse + Astro.url.pathname}> : <meta name="robots" content="noindex">}
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt springen</a>
@@ -32,6 +33,7 @@ const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '')
         <a href="/#referenzen">Referenzen</a>
         <a href="/immobilien/">Immobilien</a>
         <a href="/unternehmen/">Unternehmen</a>
+        <a href="/team/">Team</a>
         <a href="/#kontakt">Kontakt</a>
       </nav>
       <a class="anruf" href={telLink}><span>Anrufen</span> {kontakt.telefon}</a>
@@ -51,7 +53,7 @@ const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '')
         {kontakt.facebook && <a href={kontakt.facebook} rel="noopener">Facebook</a>}
         {kontakt.instagram && <a href={kontakt.instagram} rel="noopener">Instagram</a>}
       </p>
-      <p class="entwurf">Entwurf der neuen Website, Stand November 2026. Das 3D-Modell zeigt ein Beispielgebäude.</p>
+      <p class="entwurf">{!live && "Entwurf der neuen Website, Stand November 2026. "}Das 3D-Modell zeigt ein Beispielgebäude.</p>
     </div>
   </footer>
   <slot name="skripte" />

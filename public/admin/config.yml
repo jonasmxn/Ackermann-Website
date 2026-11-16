@@ -35,6 +35,28 @@ collections:
       - { name: leistungsumfang, label: Leistungsumfang, widget: list, required: false, hint: "Zum Beispiel: Rohbau, Außenputz" }
       - { name: beschreibung, label: Beschreibung, widget: text, required: false }
 
+  - name: team
+    label: Team
+    label_singular: Teammitglied
+    folder: src/content/team
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name
+    summary: "{{name}} · {{aufgabe}}"
+    media_folder: /public/bilder/team
+    public_folder: /bilder/team
+    sortable_fields: [reihenfolge, name]
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: aufgabe, label: Aufgabe, widget: string, hint: "Zum Beispiel: Geschäftsführer, Bauleiter, Buchhaltung" }
+      - { name: foto, label: Foto, widget: image, required: false, hint: "Hochformat wirkt am besten. Ohne Foto erscheinen die Initialen." }
+      - { name: text, label: Kurzvorstellung, widget: text, required: false }
+      - { name: telefon, label: Telefon, widget: string, required: false }
+      - { name: email, label: E-Mail, widget: string, required: false }
+      - { name: reihenfolge, label: Reihenfolge, widget: number, value_type: int, default: 100, hint: "Kleinere Zahl steht weiter vorn." }
+
   - name: angebote
     label: Immobilienangebote
     label_singular: Angebot
@@ -106,14 +128,9 @@ collections:
               - { name: jahr, label: Jahr oder Abschnitt, widget: string }
               - { name: text, label: Text, widget: string }
           - { name: leitsatz, label: Leitsatz, widget: string, required: false }
-          - name: team
-            label: Team
-            widget: list
-            required: false
-            fields:
-              - { name: name, label: Name, widget: string }
-              - { name: rolle, label: Aufgabe, widget: string }
-              - { name: foto, label: Foto, widget: image, required: false }
+          - { name: team_titel, label: Überschrift der Team-Seite, widget: string }
+          - { name: team_text, label: Einleitung der Team-Seite, widget: text }
+          - { name: team_leer, label: Text solange kein Teammitglied eingetragen ist, widget: string }
           - name: partner
             label: Partner
             widget: list

@@ -45,23 +45,8 @@ const karte = `https://www.openstreetmap.org/search?query=${encodeURIComponent(`
         {u.stationen.map((s) => <li><b>{s.jahr}</b><span>{s.text}</span></li>)}
       </ol>
     </div>
+    <div class="innen"><a class="knopf" href="/team/">Unser Team kennenlernen</a></div>
   </section>
-
-  {u.team?.length > 0 && (
-    <section class="block">
-      <div class="innen">
-        <div class="titel"><p class="marke">Team</p><h2>Ihre Ansprechpartner</h2></div>
-        <div class="team">
-          {u.team.map((m) => (
-            <article>
-              {m.foto && <img src={m.foto} alt={m.name} loading="lazy" width="400" height="400">}
-              <h3>{m.name}</h3><p>{m.rolle}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
 
   <section class="block">
     <div class="innen">
