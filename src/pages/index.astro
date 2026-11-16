@@ -128,6 +128,9 @@ const alt = 'https://ackermann-andernach.de';
             <p class="hinweis quelle">Karte © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap-Mitwirkende</a> · Gelände überhöht · Zahl = Projekte am Ort</p>
           </div>
         </div>
+        <div class="ortwahl" id="ortwahl" role="group" aria-label="Nach Ort filtern">
+          {orte.filter((o) => o.anzahl > 0).sort((x, y) => y.anzahl - x.anzahl).map((o) => <button type="button" data-ort={o.name} aria-pressed="false">{o.name} <b>{o.anzahl}</b></button>)}
+        </div>
         <div class="filter" id="filter" role="group" aria-label="Nach Bauart filtern">
           <button type="button" data-bauart="" aria-pressed="true">Auswahl</button>
           {bauarten.map((b) => <button type="button" data-bauart={b} aria-pressed="false">{b}</button>)}
@@ -312,6 +315,7 @@ const alt = 'https://ackermann-andernach.de';
         b.setAttribute('aria-pressed', an ? 'true' : 'false');
       });
       $('#filter-stand').textContent = `${n} von ${refs.length}` + (zustand.ort ? ` · ${zustand.ort}` : '');
+      $$('#ortwahl button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.ort === zustand.ort ? 'true' : 'false'));
       karte && karte.markiere(zustand.ort);
     }
     $('#filter').addEventListener('click', (e) => {
@@ -320,6 +324,7 @@ const alt = 'https://ackermann-andernach.de';
       else Object.assign(zustand, { bauart: b.dataset.bauart, alle: false, ort: b.dataset.bauart === '' ? '' : zustand.ort });
       filtern();
     });
+    $('#ortwahl').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; zustand.ort = zustand.ort === b.dataset.ort ? '' : b.dataset.ort; filtern(); });
     $$('[data-zeige]').forEach((a) => a.addEventListener('click', () => { Object.assign(zustand, { bauart: a.dataset.zeige, ort: '', alle: false }); filtern(); }));
     karte = initKarte({
       container: $('#karte-sicht'), canvas: $('#karte'), labels: $('#pins'), orte: daten.orte,

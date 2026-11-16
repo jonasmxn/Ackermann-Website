@@ -55,7 +55,7 @@ export function initKarte({ container, canvas, labels, orte, onPick }) {
     const kopf = new THREE.Mesh(new THREE.SphereGeometry(0.06 + 0.006 * o.anzahl, 20, 14), m); kopf.position.set(x, y + h, z); welt.add(kopf);
     const el = document.createElement('button');
     el.type = 'button'; el.className = 'pin'; el.setAttribute('aria-pressed', 'false');
-    el.innerHTML = `${o.name} <b>${o.anzahl}</b>`;
+    el.innerHTML = `<span>${o.name}</span> <b>${o.anzahl}</b>`;
     el.setAttribute('aria-label', `${o.name}: ${o.anzahl} ${o.anzahl === 1 ? 'Projekt' : 'Projekte'} zeigen`);
     el.addEventListener('click', () => onPick(o.name));
     labels.appendChild(el);
@@ -73,17 +73,24 @@ export function initKarte({ container, canvas, labels, orte, onPick }) {
   new ResizeObserver(size).observe(container); size();
   new IntersectionObserver((e) => { sichtbar = e[0].isIntersecting; dirty = true; }).observe(container);
 
+  // Auf schmalen Bildschirmen rückt die Karte auf den Bereich mit den Projekten zusammen
+  const mitte = new THREE.Vector3(), off = new THREE.Vector3(), UP = THREE.Object3D.DEFAULT_UP;
+  for (const pin of pins) mitte.add(pin.p);
+  if (pins.length) mitte.divideScalar(pins.length); mitte.y = 0;
   const v = new THREE.Vector3();
   function loop() {
     requestAnimationFrame(loop);
     if (!sichtbar || !dirty) return; dirty = false;
     welt.rotation.y = yaw;
-    const d = Math.max(12.6, 17 / cam.aspect);
-    cam.position.set(0, d * 0.8, d * 0.6); cam.lookAt(0, 0, 0.35);
+    const schmal = cam.aspect < 1.25;
+    off.set(0, 0, 0); if (schmal) off.copy(mitte).applyAxisAngle(UP, yaw).negate();
+    welt.position.copy(off);
+    const d = schmal ? 9.5 : Math.max(12.6, 17 / cam.aspect);
+    cam.position.set(0, d * 0.8, d * 0.6); cam.lookAt(0, 0, schmal ? 0 : 0.35);
     renderer.render(scene, cam);
     const w = container.clientWidth, h = container.clientHeight;
     for (const pin of pins) {
-      v.copy(pin.p).applyAxisAngle(THREE.Object3D.DEFAULT_UP, yaw).project(cam);
+      v.copy(pin.p).applyAxisAngle(UP, yaw).add(off).project(cam);
       pin.el.style.transform = `translate(-50%,-100%) translate(${((v.x + 1) / 2) * w}px,${((1 - v.y) / 2) * h}px)`;
     }
   }

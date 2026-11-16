@@ -105,7 +105,19 @@ input[type="range"] { width: 100%; accent-color: var(--blau); }
 /* Regionskarte */
 .karte { background: var(--grau); border: 1px solid var(--linie); }
 #karte-sicht { aspect-ratio: 16 / 9; overflow: hidden; }
-@media (max-width: 700px) { #karte-sicht { aspect-ratio: 1 / 1; } .pin { font-size: 0.7rem; padding: 1px 5px; } }
+.ortwahl { display: none; flex-wrap: wrap; gap: 8px; }
+.ortwahl button { border: 1px solid var(--linie); background: var(--papier); color: var(--tinte); padding: 7px 12px; font-weight: 500; font-size: 0.9rem; }
+.ortwahl button b { font-family: var(--mono); font-weight: 400; color: var(--blau); margin-left: 4px; }
+.ortwahl button[aria-pressed="true"] { background: var(--warm); border-color: var(--warm); color: #fff; }
+.ortwahl button[aria-pressed="true"] b { color: #fff; }
+@media (max-width: 700px) {
+  #karte-sicht { aspect-ratio: 1 / 1; }
+  .ortwahl { display: flex; }
+  /* Auf dem Handy zeigt der Pin nur die Zahl; die Ortsnamen stehen als Knöpfe unter der Karte */
+  .pin span { display: none; }
+  .pin { min-width: 24px; padding: 1px 6px; text-align: center; }
+  .pin b { margin: 0; color: var(--tinte); }
+}
 .pins { position: absolute; inset: 0; pointer-events: none; }
 .pin { position: absolute; left: 0; top: 0; pointer-events: auto; white-space: nowrap; font: 600 0.82rem var(--body); color: var(--tinte); background: #fff; border: 1px solid var(--tinte); padding: 2px 8px; box-shadow: 0 2px 6px rgba(21, 32, 44, 0.25); }
 .pin b { font-family: var(--mono); font-weight: 400; color: var(--blau); margin-left: 4px; }
