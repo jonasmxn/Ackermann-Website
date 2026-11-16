@@ -104,13 +104,14 @@ input[type="range"] { width: 100%; accent-color: var(--blau); }
 
 /* Regionskarte */
 .karte { background: var(--grau); border: 1px solid var(--linie); }
-#karte-sicht { aspect-ratio: 16 / 9; min-height: 320px; overflow: hidden; }
+#karte-sicht { aspect-ratio: 16 / 9; overflow: hidden; }
+@media (max-width: 700px) { #karte-sicht { aspect-ratio: 1 / 1; } }
 .pins { position: absolute; inset: 0; pointer-events: none; }
 .pin { position: absolute; left: 0; top: 0; pointer-events: auto; white-space: nowrap; font: 600 0.82rem var(--body); color: var(--tinte); background: #fff; border: 1px solid var(--tinte); padding: 2px 8px; box-shadow: 0 2px 6px rgba(21, 32, 44, 0.25); }
 .pin b { font-family: var(--mono); font-weight: 400; color: var(--blau); margin-left: 4px; }
 .pin[aria-pressed="true"] { background: var(--warm); border-color: var(--warm); color: #fff; }
 .pin[aria-pressed="true"] b { color: #fff; }
-.quelle { left: 0; bottom: 0; background: rgba(255, 255, 255, 0.88); padding: 4px 10px; text-transform: none; letter-spacing: 0; pointer-events: auto; }
+.quelle { left: 0; bottom: 0; max-width: 100%; background: rgba(255, 255, 255, 0.88); padding: 4px 10px; text-transform: none; letter-spacing: 0; pointer-events: auto; }
 .quelle a { color: inherit; }
 .filter { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .filter button { padding: 8px 14px; font-weight: 500; font-size: 0.92rem; border-color: var(--linie); background: var(--papier); }
