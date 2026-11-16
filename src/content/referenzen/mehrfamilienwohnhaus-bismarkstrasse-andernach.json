@@ -10,5 +10,11 @@
   "baujahr": "",
   "flaeche": "",
   "leistungsumfang": [],
-  "beschreibung": ""
+  "beschreibung": "",
+  "galerie": [
+    "/bilder/referenzen/mehrfamilienwohnhaus-bismarkstrasse-andernach/01.jpg",
+    "/bilder/referenzen/mehrfamilienwohnhaus-bismarkstrasse-andernach/02.jpg",
+    "/bilder/referenzen/mehrfamilienwohnhaus-bismarkstrasse-andernach/03.jpg",
+    "/bilder/referenzen/mehrfamilienwohnhaus-bismarkstrasse-andernach/04.jpg"
+  ]
 }

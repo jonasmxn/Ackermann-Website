@@ -10,5 +10,9 @@
   "baujahr": "",
   "flaeche": "",
   "leistungsumfang": [],
-  "beschreibung": ""
+  "beschreibung": "",
+  "galerie": [
+    "/bilder/referenzen/kleinbaustellen-beispiele/01.jpg",
+    "/bilder/referenzen/kleinbaustellen-beispiele/02.jpg"
+  ]
 }

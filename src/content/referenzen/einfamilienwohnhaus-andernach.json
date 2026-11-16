@@ -10,5 +10,9 @@
   "baujahr": "",
   "flaeche": "",
   "leistungsumfang": [],
-  "beschreibung": ""
+  "beschreibung": "",
+  "galerie": [
+    "/bilder/referenzen/einfamilienwohnhaus-andernach/01.jpg",
+    "/bilder/referenzen/einfamilienwohnhaus-andernach/02.jpg"
+  ]
 }

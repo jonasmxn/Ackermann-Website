@@ -1,54 +1,19 @@
 ---
-import '@fontsource/archivo/600.css';
-import '@fontsource/archivo/700.css';
-import '@fontsource/ibm-plex-sans/400.css';
-import '@fontsource/ibm-plex-sans/500.css';
-import '@fontsource/ibm-plex-sans/600.css';
-import '@fontsource/ibm-plex-mono/400.css';
-import '../styles/seite.css';
+import Rahmen from '../layouts/Rahmen.astro';
+import { referenzen } from '../daten/referenzen';
 import start from '../content/startseite.json';
 import leistungen from '../content/leistungen.json';
 import unternehmen from '../content/unternehmen.json';
 import kontakt from '../content/kontakt.json';
 import orteDatei from '../content/orte.json';
 
-const dateien = import.meta.glob('../content/referenzen/*.json', { eager: true });
-const referenzen = Object.entries(dateien)
-  .map(([pfad, m]: [string, any]) => ({ slug: pfad.split('/').pop()!.replace('.json', ''), ...(m.default ?? m) }))
-  .sort((a, b) => a.reihenfolge - b.reihenfolge);
 const orte = orteDatei.orte.map((o) => ({ ...o, anzahl: referenzen.filter((r) => r.ort === o.name).length }));
 const bauarten = ['Wohnen', 'Gewerbe', 'Hallen', 'Kleinbaustellen'].filter((b) => referenzen.some((r) => r.bauart === b));
 const anzahlTop = referenzen.filter((r) => r.startseite).length;
 const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '');
 const angebot = referenzen.find((r) => r.slug === '2-einfamilienwohnhaeuser-andernach');
-const alt = 'https://ackermann-andernach.de';
 ---
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ackermann Bau-GmbH · Bauunternehmen in Andernach seit 1948</title>
-  <meta name="description" content="Wohnhäuser, Geschäftshäuser und Hallen, massiv und schlüsselfertig gebaut. Bauunternehmen aus Andernach-Miesenheim für die Kreise Mayen-Koblenz, Neuwied und Ahrweiler.">
-  <meta name="robots" content="noindex">
-</head>
-<body>
-  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
-  <header class="kopf">
-    <div class="innen">
-      <a class="logo" href="#top" aria-label="Ackermann Bau-GmbH, Startseite"><img src="/bilder/logo.svg" alt="Ackermann Bau-GmbH" width="185" height="51"></a>
-      <nav aria-label="Hauptmenü">
-        <a href="#leistungen">Leistungen</a>
-        <a href="#referenzen">Referenzen</a>
-        <a href="#immobilien">Immobilien</a>
-        <a href="#unternehmen">Unternehmen</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-      <a class="anruf" href={telLink}><span>Anrufen</span> {kontakt.telefon}</a>
-    </div>
-  </header>
-
-  <main id="inhalt">
+<Rahmen titel="Ackermann Bau-GmbH · Bauunternehmen in Andernach seit 1948" beschreibung="Wohnhäuser, Geschäftshäuser und Hallen, massiv und schlüsselfertig gebaut. Bauunternehmen aus Andernach-Miesenheim für die Kreise Mayen-Koblenz, Neuwied und Ahrweiler.">
     <section class="kopfbild" id="top">
       <img src={start.kopfbild} alt={start.kopfbild_text ? `Referenz: ${start.kopfbild_text}` : ''} width="1599" height="1200" fetchpriority="high">
       <div class="innen">
@@ -140,10 +105,10 @@ const alt = 'https://ackermann-andernach.de';
         <div class="refs" id="refs">
           {referenzen.map((r) => (
             <article class="ref" data-bauart={r.bauart} data-ort={r.ort} data-top={r.startseite ? '1' : '0'} hidden={!r.startseite}>
-              <img src={r.bild} alt={`${r.titel}, ${r.ort}`} loading="lazy" width="640" height="480">
+              <a href={`/referenzen/${r.slug}/`}><img src={r.bild} alt={`${r.titel}, ${r.ort}`} loading="lazy" width="640" height="480"></a>
               <div>
                 <p class="ort">{r.ort} · {r.bauart}</p>
-                <h3>{r.titel}</h3>
+                <h3><a href={`/referenzen/${r.slug}/`}>{r.titel}</a></h3>
                 {r.adresse && r.adresse !== r.ort && <p class="adresse">{r.adresse}</p>}
                 {(r.baujahr || r.flaeche) && <p class="kenn">{[r.baujahr, r.flaeche].filter(Boolean).join(' · ')}</p>}
                 {r.leistungsumfang?.length > 0 && <p class="kenn">{r.leistungsumfang.join(', ')}</p>}
@@ -166,7 +131,7 @@ const alt = 'https://ackermann-andernach.de';
         {angebot && (
           <article class="angebot">
             <img src={angebot.bild} alt={`${angebot.titel}, ${angebot.ort}`} loading="lazy" width="640" height="480">
-            <div><p class="ort">In Vermarktung · {angebot.ort}</p><h3>{angebot.titel}</h3></div>
+            <div><p class="ort">In Vermarktung · {angebot.ort}</p><h3><a href={`/referenzen/${angebot.slug}/`}>{angebot.titel}</a></h3></div>
           </article>
         )}
       </div>
@@ -243,22 +208,8 @@ const alt = 'https://ackermann-andernach.de';
         </form>
       </div>
     </section>
-  </main>
 
-  <footer class="fuss">
-    <div class="innen">
-      <p>{kontakt.firma} · {kontakt.strasse} · {kontakt.ort} · Telefon {kontakt.telefon}{kontakt.fax && ` · Fax ${kontakt.fax}`}</p>
-      <p>
-        <a href={`${alt}/impressum/`}>Impressum</a>
-        <a href={`${alt}/datenschutzerklaerung/`}>Datenschutz</a>
-        {kontakt.facebook && <a href={kontakt.facebook} rel="noopener">Facebook</a>}
-        {kontakt.instagram && <a href={kontakt.instagram} rel="noopener">Instagram</a>}
-      </p>
-      <p class="entwurf">Entwurf der neuen Startseite, Stand November 2026. Das 3D-Modell zeigt ein Beispielgebäude.</p>
-    </div>
-  </footer>
-
-  <script type="application/json" id="daten" set:html={JSON.stringify({ phasen: start.phasen, orte })}></script>
+  <script slot="skripte" type="application/json" id="daten" set:html={JSON.stringify({ phasen: start.phasen, orte })}></script>
   <script>
     import { initHaus } from '../scripts/haus.js';
     import { initKarte } from '../scripts/karte.js';
@@ -356,5 +307,4 @@ const alt = 'https://ackermann-andernach.de';
       location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Anfrage: ' + d.get('thema'))}&body=${encodeURIComponent(text)}`;
     });
   </script>
-</body>
-</html>
+</Rahmen>

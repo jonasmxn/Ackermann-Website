@@ -1,0 +1,60 @@
+---
+// Gemeinsamer Rahmen aller Seiten: Kopfleiste, Fußzeile, Schriften und Stile.
+import '@fontsource/archivo/600.css';
+import '@fontsource/archivo/700.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '../styles/seite.css';
+import kontakt from '../content/kontakt.json';
+
+interface Props { titel: string; beschreibung: string; }
+const { titel, beschreibung } = Astro.props;
+const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '');
+const alt = 'https://ackermann-andernach.de';
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{titel}</title>
+  <meta name="description" content={beschreibung}>
+  <meta name="robots" content="noindex">
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+  <header class="kopf">
+    <div class="innen">
+      <a class="logo" href="/" aria-label="Ackermann Bau-GmbH, Startseite"><img src="/bilder/logo.svg" alt="Ackermann Bau-GmbH" width="185" height="51"></a>
+      <nav aria-label="Hauptmenü">
+        <a href="/#leistungen">Leistungen</a>
+        <a href="/#referenzen">Referenzen</a>
+        <a href="/#immobilien">Immobilien</a>
+        <a href="/#unternehmen">Unternehmen</a>
+        <a href="/#kontakt">Kontakt</a>
+      </nav>
+      <a class="anruf" href={telLink}><span>Anrufen</span> {kontakt.telefon}</a>
+    </div>
+  </header>
+
+  <main id="inhalt">
+    <slot />
+  </main>
+
+  <footer class="fuss">
+    <div class="innen">
+      <p>{kontakt.firma} · {kontakt.strasse} · {kontakt.ort} · Telefon {kontakt.telefon}{kontakt.fax && ` · Fax ${kontakt.fax}`}</p>
+      <p>
+        <a href={`${alt}/impressum/`}>Impressum</a>
+        <a href={`${alt}/datenschutzerklaerung/`}>Datenschutz</a>
+        {kontakt.facebook && <a href={kontakt.facebook} rel="noopener">Facebook</a>}
+        {kontakt.instagram && <a href={kontakt.instagram} rel="noopener">Instagram</a>}
+      </p>
+      <p class="entwurf">Entwurf der neuen Website, Stand November 2026. Das 3D-Modell zeigt ein Beispielgebäude.</p>
+    </div>
+  </footer>
+  <slot name="skripte" />
+</body>
+</html>

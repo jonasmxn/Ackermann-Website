@@ -10,5 +10,10 @@
   "baujahr": "",
   "flaeche": "",
   "leistungsumfang": [],
-  "beschreibung": ""
+  "beschreibung": "",
+  "galerie": [
+    "/bilder/referenzen/3-familienwohnhaus-burgbrohl-luetzing/01.jpg",
+    "/bilder/referenzen/3-familienwohnhaus-burgbrohl-luetzing/02.jpg",
+    "/bilder/referenzen/3-familienwohnhaus-burgbrohl-luetzing/03.jpg"
+  ]
 }

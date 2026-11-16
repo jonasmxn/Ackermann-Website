@@ -1,0 +1,88 @@
+---
+import Rahmen from '../../layouts/Rahmen.astro';
+import { referenzen } from '../../daten/referenzen';
+
+export function getStaticPaths() {
+  return referenzen.map((r) => ({ params: { slug: r.slug }, props: { r } }));
+}
+const { r } = Astro.props;
+const fotos = r.galerie?.length ? r.galerie : [r.bild];
+const steckbrief = [
+  ['Bauart', r.bauart], ['Ort', r.ort], ['Adresse', r.adresse && r.adresse !== r.ort ? r.adresse : ''], ['Region', r.region],
+  ['Baujahr', r.baujahr], ['Fläche', r.flaeche], ['Leistungsumfang', r.leistungsumfang?.join(', ')],
+].filter(([, wert]) => wert);
+const gleicherOrt = referenzen.filter((x) => x.slug !== r.slug && x.ort === r.ort);
+const gleicheBauart = referenzen.filter((x) => x.slug !== r.slug && x.bauart === r.bauart && x.ort !== r.ort);
+const weitere = [...gleicherOrt, ...gleicheBauart].slice(0, 3);
+const nr = referenzen.findIndex((x) => x.slug === r.slug);
+const davor = referenzen[(nr - 1 + referenzen.length) % referenzen.length], danach = referenzen[(nr + 1) % referenzen.length];
+---
+<Rahmen titel={`${r.titel}, ${r.ort} · Ackermann Bau-GmbH`} beschreibung={`${r.titel} in ${r.ort}: eine Referenz der Ackermann Bau-GmbH aus Andernach.`}>
+  <article class="projekt">
+    <div class="innen">
+      <p class="pfad"><a href="/#referenzen">Referenzen</a> / {r.ort}</p>
+      <div class="titel">
+        <p class="ort">{r.ort} · {r.bauart}</p>
+        <h1>{r.titel}</h1>
+      </div>
+    </div>
+
+    <div class="innen">
+      <figure class="haupt">
+        <img id="haupt" src={fotos[0]} alt={`${r.titel}, ${r.ort}`} width="1600" height="1200" fetchpriority="high">
+      </figure>
+      {fotos.length > 1 && (
+        <div class="daumen" role="group" aria-label="Foto wählen">
+          {fotos.map((f, i) => (
+            <button type="button" data-foto={f} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`Foto ${i + 1} von ${fotos.length}`}>
+              <img src={f} alt="" loading="lazy" width="200" height="150">
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="innen zwei">
+      <div class="text">
+        <h2>Das Projekt</h2>
+        {r.beschreibung
+          ? r.beschreibung.split(/\n\s*\n/).map((absatz) => <p>{absatz}</p>)
+          : <p>{r.titel} in {r.ort}{r.adresse && r.adresse !== r.ort ? `, ${r.adresse}` : ''}. Gebaut von der Ackermann Bau-GmbH.</p>}
+        <a class="knopf voll" href="/#kontakt">Ähnliches Bauvorhaben anfragen</a>
+      </div>
+      <dl class="steckbrief">
+        {steckbrief.map(([name, wert]) => <div><dt>{name}</dt><dd>{wert}</dd></div>)}
+      </dl>
+    </div>
+  </article>
+
+  {weitere.length > 0 && (
+    <section class="block grau">
+      <div class="innen">
+        <div class="titel"><p class="marke">Weitere Referenzen</p><h2>{gleicherOrt.length > 0 ? `Mehr aus ${r.ort} und der Region` : `Mehr aus dem Bereich ${r.bauart}`}</h2></div>
+        <div class="refs">
+          {weitere.map((x) => (
+            <article class="ref">
+              <a href={`/referenzen/${x.slug}/`}><img src={x.bild} alt={`${x.titel}, ${x.ort}`} loading="lazy" width="640" height="480"></a>
+              <div><p class="ort">{x.ort} · {x.bauart}</p><h3><a href={`/referenzen/${x.slug}/`}>{x.titel}</a></h3></div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <nav class="blaettern innen" aria-label="Weitere Referenzen">
+    <a href={`/referenzen/${davor.slug}/`}><span>Vorheriges Projekt</span>{davor.titel}, {davor.ort}</a>
+    <a href="/#referenzen" class="mitte">Alle Referenzen</a>
+    <a href={`/referenzen/${danach.slug}/`} class="rechts"><span>Nächstes Projekt</span>{danach.titel}, {danach.ort}</a>
+  </nav>
+
+  <script slot="skripte">
+    const haupt = document.getElementById('haupt');
+    document.querySelectorAll('.daumen button').forEach((b) => b.addEventListener('click', () => {
+      haupt.src = b.dataset.foto;
+      document.querySelectorAll('.daumen button').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    }));
+  </script>
+</Rahmen>

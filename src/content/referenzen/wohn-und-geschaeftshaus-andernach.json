@@ -10,5 +10,9 @@
   "baujahr": "",
   "flaeche": "",
   "leistungsumfang": [],
-  "beschreibung": ""
+  "beschreibung": "",
+  "galerie": [
+    "/bilder/referenzen/wohn-und-geschaeftshaus-andernach/01.jpg",
+    "/bilder/referenzen/wohn-und-geschaeftshaus-andernach/02.jpg"
+  ]
 }
