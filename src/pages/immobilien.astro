@@ -1,0 +1,84 @@
+---
+import Rahmen from '../layouts/Rahmen.astro';
+import seite from '../content/immobilien.json';
+import kontakt from '../content/kontakt.json';
+import { angebote } from '../daten/angebote';
+
+const aktuell = angebote.filter((a) => a.status !== 'Verkauft');
+const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '');
+---
+<Rahmen titel="Immobilien · Ackermann Bau-GmbH" beschreibung={seite.text}>
+  <article class="projekt">
+    <div class="innen">
+      <p class="pfad"><a href="/">Startseite</a> / Immobilien</p>
+      <div class="text">
+        <h1>{seite.titel}</h1>
+        <p class="einleitung">{seite.text}</p>
+      </div>
+    </div>
+    {seite.punkte?.length > 0 && (
+      <div class="innen">
+        <ul class="punkte">{seite.punkte.map((p) => <li>{p}</li>)}</ul>
+      </div>
+    )}
+  </article>
+
+  <section class="block grau">
+    <div class="innen">
+      <div class="titel">
+        <p class="marke">Aktuelle Angebote</p>
+        <h2>{aktuell.length === 0 ? 'Zurzeit kein Objekt' : aktuell.length === 1 ? 'Ein Objekt in der Vermarktung' : `${aktuell.length} Objekte in der Vermarktung`}</h2>
+        {aktuell.length === 0 && <p>{seite.leer}</p>}
+      </div>
+      {aktuell.map((a) => {
+        const fotos = a.galerie?.length ? a.galerie : [a.bild];
+        const daten = [['Art', a.art], ['Ort', a.ort], ['Fläche', a.flaeche], ['Zimmer', a.zimmer], ['Preis', a.preis]].filter(([, w]) => w);
+        return (
+          <article class="objekt" id={a.slug}>
+            <div class="bilder">
+              <img class="gross" src={fotos[0]} alt={`${a.titel}, ${a.ort}`} loading="lazy" width="1200" height="900">
+              {fotos.length > 1 && (
+                <div class="daumen" role="group" aria-label={`Foto wählen: ${a.titel}`}>
+                  {fotos.map((f, i) => (
+                    <button type="button" data-foto={f} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`Foto ${i + 1} von ${fotos.length}`}>
+                      <img src={f} alt="" loading="lazy" width="200" height="150">
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div class="text">
+              <p class="ort">{a.status} · {a.ort}</p>
+              <h3>{a.titel}</h3>
+              {a.beschreibung && a.beschreibung.split(/\n\s*\n/).map((absatz) => <p>{absatz}</p>)}
+              <dl class="steckbrief">{daten.map(([name, wert]) => <div><dt>{name}</dt><dd>{wert}</dd></div>)}</dl>
+              <a class="knopf voll" href="/#kontakt">Zu diesem Objekt anfragen</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="innen">
+      <div class="titel">
+        <p class="marke">Kontakt</p>
+        <h2>Sie möchten kaufen oder verkaufen?</h2>
+        <p>Rufen Sie uns an oder schreiben Sie uns. {kontakt.zeiten}.</p>
+        <p class="gross"><a href={telLink}>{kontakt.telefon}</a></p>
+        <a class="knopf" href="/#kontakt">Anfrage schreiben</a>
+      </div>
+    </div>
+  </section>
+
+  <script slot="skripte">
+    document.querySelectorAll('.objekt').forEach((o) => {
+      const gross = o.querySelector('.gross'), knoepfe = o.querySelectorAll('.daumen button');
+      knoepfe.forEach((b) => b.addEventListener('click', () => {
+        gross.src = b.dataset.foto;
+        knoepfe.forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+      }));
+    });
+  </script>
+</Rahmen>

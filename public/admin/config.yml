@@ -35,6 +35,28 @@ collections:
       - { name: leistungsumfang, label: Leistungsumfang, widget: list, required: false, hint: "Zum Beispiel: Rohbau, Außenputz" }
       - { name: beschreibung, label: Beschreibung, widget: text, required: false }
 
+  - name: angebote
+    label: Immobilienangebote
+    label_singular: Angebot
+    folder: src/content/angebote
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{titel}} · {{ort}} · {{status}}"
+    fields:
+      - { name: titel, label: Titel, widget: string }
+      - { name: art, label: Art, widget: select, options: [Einfamilienhaus, Doppelhaushälfte, Reihenhaus, Eigentumswohnung, Mehrfamilienhaus, Gewerbe, Grundstück] }
+      - { name: ort, label: Ort, widget: string }
+      - { name: status, label: Status, widget: select, options: [In Vermarktung, Im Bau, Reserviert, Verkauft], default: In Vermarktung, hint: "Verkaufte Objekte erscheinen nicht mehr auf der Website." }
+      - { name: bild, label: Hauptfoto, widget: image }
+      - { name: galerie, label: Weitere Fotos und Pläne, widget: list, required: false, field: { name: foto, label: Foto, widget: image } }
+      - { name: flaeche, label: Fläche, widget: string, required: false, hint: "Zum Beispiel: 140 m² Wohnfläche" }
+      - { name: zimmer, label: Zimmer, widget: string, required: false }
+      - { name: preis, label: Preis, widget: string, required: false, hint: "Zum Beispiel: 420.000 € oder: auf Anfrage" }
+      - { name: beschreibung, label: Beschreibung, widget: text, required: false }
+      - { name: reihenfolge, label: Reihenfolge, widget: number, value_type: int, default: 100 }
+
   - name: seiten
     label: Texte der Startseite
     files:
@@ -83,6 +105,15 @@ collections:
             fields:
               - { name: jahr, label: Jahr oder Abschnitt, widget: string }
               - { name: text, label: Text, widget: string }
+          - { name: leitsatz, label: Leitsatz, widget: string, required: false }
+          - name: team
+            label: Team
+            widget: list
+            required: false
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: rolle, label: Aufgabe, widget: string }
+              - { name: foto, label: Foto, widget: image, required: false }
           - name: partner
             label: Partner
             widget: list
@@ -90,6 +121,14 @@ collections:
               - { name: name, label: Name, widget: string }
               - { name: logo, label: Logo, widget: image }
               - { name: url, label: Website, widget: string }
+      - name: immobilien
+        label: Seite Immobilien
+        file: src/content/immobilien.json
+        fields:
+          - { name: titel, label: Überschrift, widget: string }
+          - { name: text, label: Einleitung, widget: text }
+          - { name: punkte, label: Das bieten wir, widget: list, required: false }
+          - { name: leer, label: Text ohne aktuelle Angebote, widget: text }
       - name: kontakt
         label: Kontaktdaten
         file: src/content/kontakt.json

@@ -1,6 +1,7 @@
 ---
 import Rahmen from '../layouts/Rahmen.astro';
 import { referenzen } from '../daten/referenzen';
+import { angebote } from '../daten/angebote';
 import start from '../content/startseite.json';
 import leistungen from '../content/leistungen.json';
 import unternehmen from '../content/unternehmen.json';
@@ -11,7 +12,7 @@ const orte = orteDatei.orte.map((o) => ({ ...o, anzahl: referenzen.filter((r) =>
 const bauarten = ['Wohnen', 'Gewerbe', 'Hallen', 'Kleinbaustellen'].filter((b) => referenzen.some((r) => r.bauart === b));
 const anzahlTop = referenzen.filter((r) => r.startseite).length;
 const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '');
-const angebot = referenzen.find((r) => r.slug === '2-einfamilienwohnhaeuser-andernach');
+const angebot = angebote.find((a) => a.status !== 'Verkauft');
 ---
 <Rahmen titel="Ackermann Bau-GmbH · Bauunternehmen in Andernach seit 1948" beschreibung="Wohnhäuser, Geschäftshäuser und Hallen, massiv und schlüsselfertig gebaut. Bauunternehmen aus Andernach-Miesenheim für die Kreise Mayen-Koblenz, Neuwied und Ahrweiler.">
     <section class="kopfbild" id="top">
@@ -126,12 +127,12 @@ const angebot = referenzen.find((r) => r.slug === '2-einfamilienwohnhaeuser-ande
           <p class="marke">Immobilien</p>
           <h2>{start.bauvorhaben_titel}</h2>
           <p>{start.bauvorhaben_text}</p>
-          <a class="knopf voll" href="#kontakt" data-thema="Immobilie kaufen oder verkaufen">Beratung anfragen</a>
+          <div class="knoepfe"><a class="knopf voll" href="/immobilien/">Zu den Immobilien</a><a class="knopf" href="#kontakt" data-thema="Immobilie kaufen oder verkaufen">Beratung anfragen</a></div>
         </div>
         {angebot && (
           <article class="angebot">
             <img src={angebot.bild} alt={`${angebot.titel}, ${angebot.ort}`} loading="lazy" width="640" height="480">
-            <div><p class="ort">In Vermarktung · {angebot.ort}</p><h3><a href={`/referenzen/${angebot.slug}/`}>{angebot.titel}</a></h3></div>
+            <div><p class="ort">{angebot.status} · {angebot.ort}</p><h3><a href="/immobilien/">{angebot.titel}</a></h3></div>
           </article>
         )}
       </div>
@@ -147,6 +148,7 @@ const angebot = referenzen.find((r) => r.slug === '2-einfamilienwohnhaeuser-ande
           <ol class="stationen">
             {unternehmen.stationen.map((s) => <li><b>{s.jahr}</b><span>{s.text}</span></li>)}
           </ol>
+          <a class="knopf" href="/unternehmen/">Mehr über uns</a>
         </div>
       </div>
       <div class="innen">

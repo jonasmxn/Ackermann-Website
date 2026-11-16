@@ -212,3 +212,22 @@ form .zeile button.voll { border-color: var(--blau); }
 .seitenbild figcaption { font: 400 0.72rem var(--mono); letter-spacing: 0.04em; color: var(--leise); }
 .punkte { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); column-gap: 32px; border-top: 2px solid var(--tinte); }
 .punkte li { padding: 12px 0; border-bottom: 1px solid var(--linie); font-weight: 500; }
+
+/* Seiten Immobilien und Unternehmen */
+.einleitung { font-size: 1.12rem; }
+.objekt { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(20px, 4vw, 48px); align-items: start; background: var(--papier); border: 1px solid var(--linie); padding: clamp(14px, 2.5vw, 28px); }
+@media (max-width: 800px) { .objekt { grid-template-columns: 1fr; } }
+.objekt .bilder { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.objekt .gross { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: var(--grau); }
+.objekt .text { min-width: 0; }
+.objekt h3 { font-size: 1.6rem; }
+.objekt .steckbrief { width: 100%; }
+.zahlen { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); border-top: 2px solid var(--tinte); }
+.zahlen div { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--linie); }
+.zahlen dt { font: 700 2.2rem var(--display); font-variant-numeric: tabular-nums; }
+.zahlen dd { margin: 0; color: var(--leise); font-size: 0.95rem; }
+.block > .innen.zwei > .stationen { margin: 0; }
+.team { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
+.team article { display: flex; flex-direction: column; gap: 6px; }
+.team img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: var(--grau); }
+.team p { color: var(--leise); }

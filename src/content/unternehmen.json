@@ -2,6 +2,7 @@
   "titel": "Seit 1948 in Familienhand",
   "text": "Die Ackermann Bau-GmbH aus Andernach-Miesenheim wird heute in dritter Generation geführt. Unsere vielseitig aufgestellten Mitarbeiter decken das Bauwesen vom Rohbau bis zum Putz ab.",
   "bild": "/bilder/ueber-uns.jpg",
+  "leitsatz": "Seit 1948 Ihr starker Baupartner im Bausektor.",
   "stationen": [
     {
       "jahr": "1948",
@@ -16,6 +17,7 @@
       "text": "Dipl.-Ing. Oliver Ackermann steigt ein."
     }
   ],
+  "team": [],
   "partner": [
     {
       "name": "Hamann Baustoffe",

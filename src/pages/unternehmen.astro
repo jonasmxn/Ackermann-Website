@@ -1,0 +1,108 @@
+---
+import Rahmen from '../layouts/Rahmen.astro';
+import u from '../content/unternehmen.json';
+import kontakt from '../content/kontakt.json';
+import leistungen from '../content/leistungen.json';
+import { referenzen } from '../daten/referenzen';
+
+const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '');
+const orte = new Set(referenzen.map((r) => r.ort)).size;
+const zahlen = [
+  ['1948', 'Gründung durch Karl Ackermann'],
+  [String(u.stationen.length), 'Generationen in Familienhand'],
+  [String(referenzen.length), 'Referenzen auf dieser Website'],
+  [String(orte), 'Orte mit gebauten Projekten'],
+];
+const karte = `https://www.openstreetmap.org/search?query=${encodeURIComponent(`${kontakt.strasse}, ${kontakt.ort}`)}`;
+---
+<Rahmen titel="Unternehmen · Ackermann Bau-GmbH" beschreibung={u.text}>
+  <article class="projekt">
+    <div class="innen">
+      <p class="pfad"><a href="/">Startseite</a> / Unternehmen</p>
+    </div>
+    <div class="innen zwei oben">
+      <div class="text">
+        <h1>{u.titel}</h1>
+        {u.leitsatz && <p class="einleitung">{u.leitsatz}</p>}
+        <p>{u.text}</p>
+      </div>
+      <figure class="seitenbild"><img src={u.bild} alt="Von der Ackermann Bau-GmbH gebautes Mehrfamilienhaus" width="640" height="640" fetchpriority="high"></figure>
+    </div>
+    <div class="innen">
+      <dl class="zahlen">
+        {zahlen.map(([zahl, text]) => <div><dt>{zahl}</dt><dd>{text}</dd></div>)}
+      </dl>
+    </div>
+  </article>
+
+  <section class="block grau">
+    <div class="innen zwei">
+      <div class="titel">
+        <p class="marke">Firmengeschichte</p>
+        <h2>Drei Generationen Bau</h2>
+      </div>
+      <ol class="stationen">
+        {u.stationen.map((s) => <li><b>{s.jahr}</b><span>{s.text}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  {u.team?.length > 0 && (
+    <section class="block">
+      <div class="innen">
+        <div class="titel"><p class="marke">Team</p><h2>Ihre Ansprechpartner</h2></div>
+        <div class="team">
+          {u.team.map((m) => (
+            <article>
+              {m.foto && <img src={m.foto} alt={m.name} loading="lazy" width="400" height="400">}
+              <h3>{m.name}</h3><p>{m.rolle}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="block">
+    <div class="innen">
+      <div class="titel"><p class="marke">Leistungen</p><h2>Was wir für Sie bauen</h2></div>
+      <div class="leistungen">
+        {leistungen.eintraege.map((l) => (
+          <article>
+            <h3>{l.slug ? <a href={`/leistungen/${l.slug}/`}>{l.titel}</a> : l.titel}</h3>
+            <p>{l.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block grau">
+    <div class="innen">
+      <p class="marke">Partner und Verbände</p>
+      <ul class="partner">
+        {u.partner.map((p) => <li><a href={p.url} rel="noopener"><img src={p.logo} alt={p.name} loading="lazy"></a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="innen zwei">
+      <div class="titel">
+        <p class="marke">Standort</p>
+        <h2>Unser Büro in Andernach-Miesenheim</h2>
+        <address>
+          {kontakt.firma}<br>{kontakt.strasse}<br>{kontakt.ort}<br>
+          {kontakt.zeiten}
+        </address>
+        <a class="knopf" href={karte} rel="noopener">Auf der Karte ansehen</a>
+      </div>
+      <div class="titel">
+        <p class="marke">Kontakt</p>
+        <p class="gross"><a href={telLink}>{kontakt.telefon}</a></p>
+        <p>{kontakt.fax && <>Fax {kontakt.fax}<br></>}<a href={`mailto:${kontakt.email}`}>{kontakt.email}</a></p>
+        <a class="knopf voll" href="/#kontakt">Bauvorhaben anfragen</a>
+      </div>
+    </div>
+  </section>
+</Rahmen>
