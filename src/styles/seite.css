@@ -239,3 +239,9 @@ form .zeile button.voll { border-color: var(--blau); }
 .rechtstext ul { margin: 0; padding-left: 1.2em; max-width: 62ch; display: flex; flex-direction: column; gap: 6px; }
 .pruefen { border-left: 4px solid var(--warm); background: #fbf1e7; padding: 10px 14px; font-size: 0.95rem; }
 .stand { color: var(--leise); font-size: 0.9rem; margin-top: 16px; }
+
+/* Anfrageformular: Bestätigung und unsichtbares Feld gegen automatische Einsendungen */
+form input[type="email"] { font: inherit; padding: 10px 12px; border: 1px solid #8493a5; background: #fff; color: var(--tinte); width: 100%; border-radius: 0; }
+.honig { position: absolute; left: -9999px; }
+.gesendet { display: flex; flex-direction: column; gap: 8px; border-left: 4px solid var(--blau); background: var(--blau-hell); padding: 16px; }
+form button:disabled { opacity: 0.6; cursor: default; }

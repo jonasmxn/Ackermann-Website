@@ -172,7 +172,9 @@ const angebot = angebote.find((a) => a.status !== 'Verkauft');
             <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
           </address>
         </div>
-        <form id="anfrage" data-email={kontakt.email} novalidate>
+        <form id="anfrage" name="anfrage" method="POST" data-netlify="true" netlify-honeypot="website" data-email={kontakt.email} novalidate>
+          <input type="hidden" name="form-name" value="anfrage">
+          <p class="honig" aria-hidden="true"><label>Bitte leer lassen <input name="website" tabindex="-1" autocomplete="off"></label></p>
           <p class="schritt" id="schritt-stand">Frage 1 von 3</p>
           <fieldset data-schritt="0">
             <legend>Was möchten Sie bauen?</legend>
@@ -197,16 +199,22 @@ const angebot = angebote.find((a) => a.status !== 'Verkauft');
             <input id="f-name" name="name" type="text" autocomplete="name" required>
             <label for="f-tel">Telefon</label>
             <input id="f-tel" name="tel" type="tel" autocomplete="tel">
+            <label for="f-mail">E-Mail</label>
+            <input id="f-mail" name="email" type="email" autocomplete="email">
             <label for="f-text">Nachricht (freiwillig)</label>
             <textarea id="f-text" name="text" rows="3"></textarea>
-            <p class="fehler" id="f-fehler" hidden>Bitte geben Sie Ihren Namen an.</p>
+            <p class="fehler" id="f-fehler" role="alert" hidden></p>
           </fieldset>
           <div class="zeile">
             <button type="button" id="zurueck" hidden>Zurück</button>
             <button type="button" class="voll" id="weiter">Weiter</button>
-            <button type="submit" class="voll" id="senden" hidden>Anfrage im E-Mail-Programm öffnen</button>
+            <button type="submit" class="voll" id="senden" hidden>Anfrage senden</button>
           </div>
-          <p class="klein">Die Anfrage wird als fertige E-Mail an {kontakt.email} in Ihrem E-Mail-Programm geöffnet.</p>
+          <p class="klein" id="f-hinweis">Ihre Angaben verwenden wir nur, um Ihre Anfrage zu beantworten. Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>.</p>
+          <div class="gesendet" id="f-gesendet" role="status" hidden>
+            <h3>Vielen Dank, Ihre Anfrage ist bei uns angekommen.</h3>
+            <p>Wir melden uns bei Ihnen. Bürozeiten: {kontakt.zeiten}.</p>
+          </div>
         </form>
       </div>
     </section>
@@ -299,13 +307,32 @@ const angebot = angebote.find((a) => a.status !== 'Verkauft');
     $$('[data-thema]').forEach((a) => a.addEventListener('click', () => {
       const r = $$('input[name=thema]', form).find((i) => i.value === a.dataset.thema); if (r) r.checked = true;
     }));
-    form.addEventListener('submit', (e) => {
+    const fehler = (text, feld) => { const f = $('#f-fehler'); f.textContent = text; f.hidden = !text; if (feld) feld.focus(); };
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const d = new FormData(form);
-      if (!String(d.get('name')).trim()) { $('#f-fehler').hidden = false; $('#f-name').focus(); return; }
-      $('#f-fehler').hidden = true;
+      if (!String(d.get('name')).trim()) return fehler('Bitte geben Sie Ihren Namen an.', $('#f-name'));
+      const mail = String(d.get('email')).trim(), tel = String(d.get('tel')).trim();
+      if (!mail && !tel) return fehler('Bitte geben Sie eine Telefonnummer oder E-Mail-Adresse an, damit wir Sie erreichen.', $('#f-tel'));
+      if (mail && !/^\S+@\S+\.\S+$/.test(mail)) return fehler('Bitte prüfen Sie die E-Mail-Adresse.', $('#f-mail'));
+      fehler('');
+      const knopf = $('#senden'); knopf.disabled = true; knopf.textContent = 'Wird gesendet';
+      let ok = false;
+      try {
+        const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(d).toString() });
+        ok = r.ok;
+      } catch (err) { ok = false; }
+      if (ok) {
+        schritte.forEach((f) => { f.hidden = true; });
+        for (const id of ['#schritt-stand', '#zurueck', '#weiter', '#senden', '#f-hinweis']) $(id).hidden = true;
+        $('#f-gesendet').hidden = false;
+        return;
+      }
+      // Der direkte Versand hat nicht geklappt: Die Anfrage geht ersatzweise über das E-Mail-Programm des Besuchers
+      knopf.disabled = false; knopf.textContent = 'Anfrage senden';
       const text = [`Bauvorhaben: ${d.get('thema')}`, `Ort: ${d.get('ort') || 'keine Angabe'}`, `Baubeginn: ${d.get('zeit')}`, `Name: ${d.get('name')}`,
-        `Telefon: ${d.get('tel') || 'keine Angabe'}`, '', d.get('text') || ''].join('\n');
+        `Telefon: ${tel || 'keine Angabe'}`, `E-Mail: ${mail || 'keine Angabe'}`, '', d.get('text') || ''].join('\n');
+      fehler('Die Anfrage konnte nicht direkt gesendet werden. Wir öffnen sie stattdessen in Ihrem E-Mail-Programm.');
       location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Anfrage: ' + d.get('thema'))}&body=${encodeURIComponent(text)}`;
     });
   </script>
