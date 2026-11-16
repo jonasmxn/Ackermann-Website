@@ -1,0 +1,76 @@
+---
+import Rahmen from '../../layouts/Rahmen.astro';
+import leistungen from '../../content/leistungen.json';
+import { referenzen } from '../../daten/referenzen';
+
+export function getStaticPaths() {
+  return leistungen.eintraege.filter((l) => l.slug).map((l) => ({ params: { slug: l.slug }, props: { l } }));
+}
+const { l } = Astro.props;
+const passend = referenzen.filter((r) => (l.bauarten ?? []).includes(r.bauart));
+const gezeigt = passend.slice(0, 6);
+const bild = passend[0];
+const andere = leistungen.eintraege.filter((x) => x.slug && x.slug !== l.slug);
+---
+<Rahmen titel={`${l.titel} · Ackermann Bau-GmbH`} beschreibung={l.text}>
+  <article class="projekt">
+    <div class="innen">
+      <p class="pfad"><a href="/#leistungen">Leistungen</a> / {l.titel}</p>
+    </div>
+    <div class="innen zwei oben">
+      <div class="text">
+        <h1>{l.titel}</h1>
+        <p class="einleitung">{l.einleitung || l.text}</p>
+        <a class="knopf voll" href="/#kontakt">Bauvorhaben anfragen</a>
+      </div>
+      {bild && (
+        <figure class="seitenbild">
+          <img src={bild.bild} alt={`${bild.titel}, ${bild.ort}`} width="800" height="600" fetchpriority="high">
+          <figcaption>{bild.titel}, {bild.ort}</figcaption>
+        </figure>
+      )}
+    </div>
+    {l.punkte?.length > 0 && (
+      <div class="innen">
+        <h2>Das gehört dazu</h2>
+        <ul class="punkte">
+          {l.punkte.map((p) => <li>{p}</li>)}
+        </ul>
+      </div>
+    )}
+  </article>
+
+  {gezeigt.length > 0 && (
+    <section class="block grau">
+      <div class="innen">
+        <div class="titel">
+          <p class="marke">Referenzen</p>
+          <h2>{passend.length} {passend.length === 1 ? 'Projekt' : 'Projekte'} aus diesem Bereich</h2>
+        </div>
+        <div class="refs">
+          {gezeigt.map((x) => (
+            <article class="ref">
+              <a href={`/referenzen/${x.slug}/`}><img src={x.bild} alt={`${x.titel}, ${x.ort}`} loading="lazy" width="640" height="480"></a>
+              <div><p class="ort">{x.ort} · {x.bauart}</p><h3><a href={`/referenzen/${x.slug}/`}>{x.titel}</a></h3></div>
+            </article>
+          ))}
+        </div>
+        {passend.length > gezeigt.length && <p><a href="/#referenzen">Alle Referenzen ansehen</a></p>}
+      </div>
+    </section>
+  )}
+
+  <section class="block">
+    <div class="innen">
+      <div class="titel"><p class="marke">Weitere Leistungen</p></div>
+      <div class="leistungen">
+        {andere.map((x) => (
+          <article>
+            <h3><a href={`/leistungen/${x.slug}/`}>{x.titel}</a></h3>
+            <p>{x.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Rahmen>

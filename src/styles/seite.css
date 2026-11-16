@@ -201,3 +201,14 @@ form .zeile button.voll { border-color: var(--blau); }
 .blaettern .rechts { text-align: right; }
 .blaettern .mitte { font-weight: 500; font-size: 0.92rem; color: var(--blau); }
 @media (max-width: 640px) { .blaettern { grid-template-columns: 1fr; } .blaettern .rechts { text-align: left; } }
+
+/* Leistungsseite */
+.leistungen h3 a { color: inherit; text-decoration: none; }
+.leistungen h3 a:hover { color: var(--blau); text-decoration: underline; }
+.projekt > .innen.zwei.oben { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; margin-top: 0; }
+@media (max-width: 800px) { .projekt > .innen.zwei.oben { grid-template-columns: 1fr; } }
+.seitenbild { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.seitenbild img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.seitenbild figcaption { font: 400 0.72rem var(--mono); letter-spacing: 0.04em; color: var(--leise); }
+.punkte { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); column-gap: 32px; border-top: 2px solid var(--tinte); }
+.punkte li { padding: 12px 0; border-bottom: 1px solid var(--linie); font-weight: 500; }

@@ -1,29 +1,71 @@
 {
   "eintraege": [
     {
+      "slug": "schluesselfertig-bauen",
       "titel": "Schlüsselfertig bauen",
       "text": "Wohn- und Geschäftshäuser von der Planung bis zur Übergabe, massiv gebaut.",
-      "bauart": "Wohnen"
+      "einleitung": "Wir bauen Wohnhäuser, Geschäftshäuser und Gewerbe-Immobilien massiv und schlüsselfertig. Sie bekommen Planung, Rohbau und Ausbau aus einem Unternehmen.",
+      "punkte": [
+        "Planung von Bauobjekten",
+        "Einfamilienhäuser, Reihenhäuser und Mehrfamilienhäuser",
+        "Wohn- und Geschäftshäuser",
+        "Massive Bauweise",
+        "Grundstückskauf und Grundstücksverkauf"
+      ],
+      "bauarten": ["Wohnen"]
     },
     {
+      "slug": "rohbau",
       "titel": "Rohbau",
       "text": "Hoch-, Tief- und Ingenieurbau: Wir erstellen Rohbauten für private und gewerbliche Bauherren.",
-      "bauart": "Wohnen"
+      "einleitung": "Wir sind Ihr Ansprechpartner für Hoch-, Tief- und Ingenieurbau und erstellen den Rohbau für Ihr Wohnhaus oder Ihren Gewerbebau.",
+      "punkte": [
+        "Hochbau",
+        "Tiefbau",
+        "Ingenieurbau",
+        "Erstellen von Rohbauten für Wohn- und Gewerbebauten"
+      ],
+      "bauarten": ["Wohnen", "Gewerbe"]
     },
     {
+      "slug": "hallen-und-gewerbe",
       "titel": "Hallen und Gewerbe",
       "text": "Lagerhallen, Werkstätten und Gewerbebauten, zum Beispiel für das THW in Andernach und Neuwied.",
-      "bauart": "Hallen"
+      "einleitung": "Wir bauen Lagerhallen, Werkstätten, Bürogebäude und Gewerbebauten. Zu unseren Referenzen gehören die Unterkünfte des THW in Andernach und Neuwied.",
+      "punkte": [
+        "Lagerhallen",
+        "Bürogebäude mit Werkstatt",
+        "Unterkünfte und Funktionsgebäude",
+        "Gewerbebauten"
+      ],
+      "bauarten": ["Hallen", "Gewerbe"]
     },
     {
+      "slug": "sanierung-und-kleinbaustellen",
       "titel": "Sanierung und Kleinbaustellen",
       "text": "Garagen, Sanierungen an Bestandshäusern, Trockenlegung von Kellern und vieles mehr.",
-      "bauart": "Kleinbaustellen"
+      "einleitung": "Wir planen und bauen auch kleinere Bauobjekte. Dazu gehören Garagen, Außenanlagen, Sanierungen an Bestandshäusern und die Trockenlegung von Kellern.",
+      "punkte": [
+        "Garagen",
+        "Lagerräume",
+        "Sanierungen an Bestandshäusern",
+        "Trockenlegung von Kellern",
+        "Außenanlagen"
+      ],
+      "bauarten": ["Kleinbaustellen"]
     },
     {
+      "slug": "putz-und-aussenanlagen",
       "titel": "Putz und Außenanlagen",
       "text": "Innen- und Außenputz, Pflasterarbeiten und die Gestaltung Ihrer Außenanlagen.",
-      "bauart": ""
+      "einleitung": "Innen- und Außenputz gehören zu unseren Leistungen, ebenso Pflasterarbeiten und die Gestaltung von Außenanlagen.",
+      "punkte": [
+        "Innenputz",
+        "Außenputz",
+        "Pflasterarbeiten",
+        "Gestaltung von Außenanlagen"
+      ],
+      "bauarten": []
     }
   ]
 }

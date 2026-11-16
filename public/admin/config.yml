@@ -65,8 +65,11 @@ collections:
             widget: list
             fields:
               - { name: titel, label: Titel, widget: string }
-              - { name: text, label: Text, widget: text }
-              - { name: bauart, label: Passende Referenzen, widget: select, options: ["", Wohnen, Gewerbe, Hallen, Kleinbaustellen], required: false }
+              - { name: slug, label: Adresse der Unterseite, widget: string, hint: "Nur Kleinbuchstaben und Bindestriche, zum Beispiel: hallen-und-gewerbe. Nachträglich nicht ändern." }
+              - { name: text, label: Kurztext für die Startseite, widget: text }
+              - { name: einleitung, label: Einleitung der Unterseite, widget: text, required: false }
+              - { name: punkte, label: Das gehört dazu, widget: list, required: false }
+              - { name: bauarten, label: Passende Referenzen, widget: select, multiple: true, options: [Wohnen, Gewerbe, Hallen, Kleinbaustellen], required: false }
       - name: unternehmen
         label: Unternehmen
         file: src/content/unternehmen.json
