@@ -1,11 +1,10 @@
 @echo off
-chcp 65001 >nul
-title Website Ackermann - Änderungen veröffentlichen
+title Website Ackermann - Aenderungen veroeffentlichen
 cd /d "%~dp0"
 git add -A
 git diff --cached --quiet
 if %errorlevel%==0 (
-  echo Es gibt keine neuen Änderungen zum Veröffentlichen.
+  echo Es gibt keine neuen Aenderungen zum Veroeffentlichen.
   pause
   exit /b
 )
@@ -16,6 +15,6 @@ if errorlevel 1 (
   echo Das Hochladen hat nicht geklappt. Bitte die Meldung oben lesen.
 ) else (
   echo.
-  echo Fertig. In ein bis zwei Minuten sind die Änderungen online.
+  echo Fertig. In ein bis zwei Minuten sind die Aenderungen online.
 )
 pause

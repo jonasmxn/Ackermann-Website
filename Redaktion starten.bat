@@ -1,5 +1,4 @@
 @echo off
-chcp 65001 >nul
 title Website Ackermann - Redaktion starten
 cd /d "%~dp0"
 echo Starte Website-Vorschau und Redaktionssystem ...
