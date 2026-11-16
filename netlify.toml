@@ -1,0 +1,7 @@
+# Build-Einstellungen für Netlify. Diese Datei hat Vorrang vor den Einstellungen in der Netlify-Oberfläche.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
