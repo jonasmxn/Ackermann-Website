@@ -231,3 +231,11 @@ form .zeile button.voll { border-color: var(--blau); }
 .team article { display: flex; flex-direction: column; gap: 6px; }
 .team img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: var(--grau); }
 .team p { color: var(--leise); }
+
+/* Rechtstexte */
+.rechtstext > .innen { max-width: 820px; gap: 12px; }
+.rechtstext h1 { margin-bottom: 8px; }
+.rechtstext h2 { font-size: 1.3rem; margin-top: 20px; }
+.rechtstext ul { margin: 0; padding-left: 1.2em; max-width: 62ch; display: flex; flex-direction: column; gap: 6px; }
+.pruefen { border-left: 4px solid var(--warm); background: #fbf1e7; padding: 10px 14px; font-size: 0.95rem; }
+.stand { color: var(--leise); font-size: 0.9rem; margin-top: 16px; }

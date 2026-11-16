@@ -1,0 +1,53 @@
+---
+import Rahmen from '../layouts/Rahmen.astro';
+import kontakt from '../content/kontakt.json';
+---
+<Rahmen titel="Impressum · Ackermann Bau-GmbH" beschreibung="Impressum der Ackermann Bau-GmbH, Andernach.">
+  <article class="projekt rechtstext">
+    <div class="innen">
+      <p class="pfad"><a href="/">Startseite</a> / Impressum</p>
+      <h1>Impressum</h1>
+
+      <h2>Angaben zum Unternehmen</h2>
+      <p>
+        {kontakt.firma}<br>
+        {kontakt.strasse}<br>
+        {kontakt.ort}
+      </p>
+      <p>
+        Handelsregister: HRB 12774<br>
+        Registergericht: Amtsgericht Koblenz
+      </p>
+      <p>Vertreten durch: Rolf Ackermann</p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: {kontakt.telefon}<br>
+        {kontakt.fax && <>Telefax: {kontakt.fax}<br></>}
+        E-Mail: <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+      </p>
+
+      <h2>Steuernummer</h2>
+      <p>29/676/0300/9</p>
+
+      <h2>Verbraucherstreitbeilegung</h2>
+      <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>Für die eigenen Inhalte dieser Website sind wir nach den allgemeinen Gesetzen verantwortlich. Wir sind nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. Erfahren wir von einer konkreten Rechtsverletzung, entfernen wir den betreffenden Inhalt umgehend.</p>
+
+      <h2>Haftung für Links</h2>
+      <p>Diese Website enthält Links zu Websites Dritter. Auf deren Inhalte haben wir keinen Einfluss, verantwortlich ist der jeweilige Anbieter. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Erfahren wir von einer Rechtsverletzung, entfernen wir den Link umgehend.</p>
+
+      <h2>Urheberrecht</h2>
+      <p>Die Inhalte dieser Website unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung und Verbreitung außerhalb der gesetzlichen Grenzen brauchen unsere schriftliche Zustimmung.</p>
+
+      <h2>Karten- und Bildnachweise</h2>
+      <p>
+        Regionskarte: © <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap-Mitwirkende</a>, lizenziert unter der Open Database License.<br>
+        Geländedaten der Regionskarte: Terrain Tiles (Mapzen, bereitgestellt über AWS Open Data).<br>
+        Fotos: Ackermann Bau-GmbH.
+      </p>
+    </div>
+  </article>
+</Rahmen>

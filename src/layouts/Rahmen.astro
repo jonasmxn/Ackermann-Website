@@ -12,7 +12,6 @@ import kontakt from '../content/kontakt.json';
 interface Props { titel: string; beschreibung: string; }
 const { titel, beschreibung } = Astro.props;
 const telLink = 'tel:+49' + kontakt.telefon.replace(/\D/g, '').replace(/^0/, '');
-const alt = 'https://ackermann-andernach.de';
 ---
 <!doctype html>
 <html lang="de">
@@ -47,8 +46,8 @@ const alt = 'https://ackermann-andernach.de';
     <div class="innen">
       <p>{kontakt.firma} · {kontakt.strasse} · {kontakt.ort} · Telefon {kontakt.telefon}{kontakt.fax && ` · Fax ${kontakt.fax}`}</p>
       <p>
-        <a href={`${alt}/impressum/`}>Impressum</a>
-        <a href={`${alt}/datenschutzerklaerung/`}>Datenschutz</a>
+        <a href="/impressum/">Impressum</a>
+        <a href="/datenschutz/">Datenschutz</a>
         {kontakt.facebook && <a href={kontakt.facebook} rel="noopener">Facebook</a>}
         {kontakt.instagram && <a href={kontakt.instagram} rel="noopener">Instagram</a>}
       </p>
