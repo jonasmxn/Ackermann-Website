@@ -1,15 +1,61 @@
 ---
-// Der Text stammt aus der Datenschutzerklärung der bisherigen Website (src/content/datenschutz.html,
-// erzeugt mit tools/datenschutz-uebernehmen.mjs). Angepasst sind nur Hosting, Kontaktformular und entfallene Dienste.
 import Rahmen from '../layouts/Rahmen.astro';
-import text from '../content/datenschutz.html?raw';
+import kontakt from '../content/kontakt.json';
 ---
 <Rahmen titel="Datenschutz · Ackermann Bau-GmbH" beschreibung="Datenschutzerklärung der Ackermann Bau-GmbH, Andernach.">
   <article class="projekt rechtstext">
     <div class="innen">
       <p class="pfad"><a href="/">Startseite</a> / Datenschutz</p>
       <h1>Datenschutzerklärung</h1>
-      <Fragment set:html={text} />
+      <p class="pruefen">Entwurf, an die Technik der neuen Website angepasst. Vor der Veröffentlichung rechtlich prüfen lassen.</p>
+
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        {kontakt.firma}<br>
+        {kontakt.strasse}, {kontakt.ort}<br>
+        Telefon: {kontakt.telefon}<br>
+        E-Mail: <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+      </p>
+
+      <h2>2. Das Wichtigste in Kürze</h2>
+      <ul>
+        <li>Diese Website setzt keine Cookies und verwendet keine Analyse- oder Werbedienste.</li>
+        <li>Schriften, Karte und 3D-Modell liegen auf unserem eigenen Webspace. Beim Besuch werden keine Inhalte von Google oder anderen Drittanbietern nachgeladen.</li>
+        <li>Personenbezogene Daten verarbeiten wir nur, wenn Sie uns anrufen oder schreiben, und in den technischen Protokollen des Webservers.</li>
+      </ul>
+
+      <h2>3. Hosting und Server-Protokolle</h2>
+      <p>Diese Website wird bei Netlify, Inc. (San Francisco, USA) gehostet. Beim Aufruf einer Seite verarbeitet der Webserver technisch notwendige Daten: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, übertragene Datenmenge sowie Browser und Betriebssystem.</p>
+      <p>Die Verarbeitung dient der Auslieferung und der Sicherheit der Website. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren und fehlerfreien Betrieb der Website.</p>
+      <p class="pruefen">Zu prüfen: Vertrag zur Auftragsverarbeitung mit dem Hoster, Grundlage der Übermittlung in die USA und Speicherdauer der Protokolle. Wechselt der Hoster zum Start der Website, ist dieser Abschnitt anzupassen.</p>
+
+      <h2>4. Kontakt per Telefon, E-Mail und Anfrageformular</h2>
+      <p>Wenn Sie uns anrufen oder schreiben, verarbeiten wir Ihre Angaben, um Ihre Anfrage zu bearbeiten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit es um einen Auftrag oder dessen Anbahnung geht, sonst Art. 6 Abs. 1 lit. f DSGVO.</p>
+      <p>Wenn Sie das Anfrageformular auf der Startseite absenden, werden Ihre Angaben (Bauvorhaben, Ort, gewünschter Baubeginn, Name, Telefon, E-Mail und Nachricht) an unseren Hoster Netlify übertragen, dort gespeichert und uns per E-Mail zugestellt. Kann das Formular nicht direkt senden, öffnet es Ihre Anfrage ersatzweise in Ihrem eigenen E-Mail-Programm.</p>
+      <p>Wir löschen Ihre Anfrage, sobald sie erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+
+      <h2>5. Links zu anderen Websites</h2>
+      <p>Wir verlinken auf unsere Seiten bei Facebook und Instagram, auf OpenStreetMap und auf die Websites unserer Partner. Daten werden an diese Anbieter erst übertragen, wenn Sie einen solchen Link anklicken. Dann gelten die Datenschutzhinweise des jeweiligen Anbieters.</p>
+
+      <h2>6. Verschlüsselung</h2>
+      <p>Diese Website wird verschlüsselt übertragen. Sie erkennen das am „https://“ in der Adresszeile Ihres Browsers.</p>
+
+      <h2>7. Ihre Rechte</h2>
+      <p>Sie haben das Recht,</p>
+      <ul>
+        <li>Auskunft über Ihre bei uns gespeicherten Daten zu erhalten (Art. 15 DSGVO),</li>
+        <li>die Berichtigung unrichtiger Daten zu verlangen (Art. 16 DSGVO),</li>
+        <li>die Löschung Ihrer Daten zu verlangen (Art. 17 DSGVO),</li>
+        <li>die Einschränkung der Verarbeitung zu verlangen (Art. 18 DSGVO),</li>
+        <li>Ihre Daten in einem gängigen Format zu erhalten (Art. 20 DSGVO),</li>
+        <li>der Verarbeitung zu widersprechen, soweit sie auf Art. 6 Abs. 1 lit. f DSGVO beruht (Art. 21 DSGVO).</li>
+      </ul>
+      <p>Wenden Sie sich dazu an die oben genannte Adresse.</p>
+
+      <h2>8. Beschwerde bei der Aufsichtsbehörde</h2>
+      <p>Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren. Für uns zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz.</p>
+
+      <p class="stand">Stand: November 2026</p>
     </div>
   </article>
 </Rahmen>
