@@ -1,0 +1,35 @@
+# Weiterleitungen von den Adressen der bisherigen WordPress-Website auf die neuen Seiten.
+# Netlify liest diese Datei bei jeder Veröffentlichung. Reihenfolge: die erste passende Zeile gilt.
+
+# Feste Seiten
+/ueber-uns                 /unternehmen/                                301
+/kontakt                   /#kontakt                                    301
+/datenschutzerklaerung     /datenschutz/                                301
+/vermarktung               /immobilien/                                 301
+/wohnen                    /leistungen/schluesselfertig-bauen/          301
+/hallen                    /leistungen/hallen-und-gewerbe/              301
+/gewerbe                   /leistungen/hallen-und-gewerbe/              301
+/kleinbaustellen           /leistungen/sanierung-und-kleinbaustellen/   301
+
+# Übersichten nach Bauart und Region
+/projekte/wohnen           /leistungen/schluesselfertig-bauen/          301
+/projekte/hallen           /leistungen/hallen-und-gewerbe/              301
+/projekte/gewerbe          /leistungen/hallen-und-gewerbe/              301
+/projekte/kleinbaustellen  /leistungen/sanierung-und-kleinbaustellen/   301
+/projekte/vermarktung      /immobilien/                                 301
+/projekte/koblenz              /#referenzen                             301
+/projekte/kreis-mayen-koblenz  /#referenzen                             301
+/projekte/kreis-neuwied        /#referenzen                             301
+/projekte/ahrweiler            /#referenzen                             301
+
+# Projektseiten und ihre Foto-Unterseiten: der Projektname ist alt und neu derselbe
+/projekte/:bereich/:projekt      /referenzen/:projekt/                  301
+/projekte/:bereich/:projekt/*    /referenzen/:projekt/                  301
+/projekte/*                      /#referenzen                           301
+
+# Reste von WordPress
+/startseite/*              /                                            301
+/author/*                  /unternehmen/                                301
+/feed/*                    /                                            301
+/wp-login.php              /                                            301
+/wp-admin/*                /                                            301

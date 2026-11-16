@@ -1,0 +1,21 @@
+---
+import Rahmen from '../layouts/Rahmen.astro';
+import kontakt from '../content/kontakt.json';
+---
+<Rahmen titel="Seite nicht gefunden · Ackermann Bau-GmbH" beschreibung="Diese Seite gibt es nicht.">
+  <article class="projekt">
+    <div class="innen">
+      <div class="text">
+        <p class="marke">Fehler 404</p>
+        <h1>Diese Seite gibt es nicht</h1>
+        <p class="einleitung">Die Adresse ist falsch oder die Seite wurde verschoben. So kommen Sie weiter:</p>
+        <div class="knoepfe">
+          <a class="knopf voll" href="/">Zur Startseite</a>
+          <a class="knopf" href="/#referenzen">Referenzen</a>
+          <a class="knopf" href="/#kontakt">Kontakt</a>
+        </div>
+        <p>Oder rufen Sie uns an: {kontakt.telefon}</p>
+      </div>
+    </div>
+  </article>
+</Rahmen>
