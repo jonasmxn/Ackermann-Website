@@ -1,0 +1,959 @@
+{
+ "orte": [
+  {
+   "name": "Altstadt",
+   "lat": 50.3608,
+   "lon": 7.6003
+  },
+  {
+   "name": "Altwied",
+   "lat": 50.4828,
+   "lon": 7.4668
+  },
+  {
+   "name": "Andernach",
+   "lat": 50.439,
+   "lon": 7.402
+  },
+  {
+   "name": "Anhausen",
+   "lat": 50.497,
+   "lon": 7.5534
+  },
+  {
+   "name": "Ariendorf",
+   "lat": 50.5308,
+   "lon": 7.296
+  },
+  {
+   "name": "Arienheller",
+   "lat": 50.5108,
+   "lon": 7.3337
+  },
+  {
+   "name": "Asterstein",
+   "lat": 50.35,
+   "lon": 7.6181
+  },
+  {
+   "name": "Bad Bodendorf",
+   "lat": 50.5579,
+   "lon": 7.22
+  },
+  {
+   "name": "Bad Breisig",
+   "lat": 50.508,
+   "lon": 7.297
+  },
+  {
+   "name": "Bad Hönningen",
+   "lat": 50.5157,
+   "lon": 7.3066
+  },
+  {
+   "name": "Bad Neuenahr",
+   "lat": 50.5449,
+   "lon": 7.1377
+  },
+  {
+   "name": "Bassenheim",
+   "lat": 50.3588,
+   "lon": 7.4568
+  },
+  {
+   "name": "Bell",
+   "lat": 50.3875,
+   "lon": 7.2329
+  },
+  {
+   "name": "Bendorf",
+   "lat": 50.4238,
+   "lon": 7.5733
+  },
+  {
+   "name": "Betzing",
+   "lat": 50.3227,
+   "lon": 7.2658
+  },
+  {
+   "name": "Block",
+   "lat": 50.4357,
+   "lon": 7.5098
+  },
+  {
+   "name": "Bonefeld",
+   "lat": 50.5247,
+   "lon": 7.49
+  },
+  {
+   "name": "Brenk",
+   "lat": 50.4316,
+   "lon": 7.1722
+  },
+  {
+   "name": "Brohl",
+   "lat": 50.4853,
+   "lon": 7.3267
+  },
+  {
+   "name": "Brohl-Lützing",
+   "lat": 50.484,
+   "lon": 7.327
+  },
+  {
+   "name": "Bubenheim",
+   "lat": 50.3804,
+   "lon": 7.548
+  },
+  {
+   "name": "Burgbrohl",
+   "lat": 50.456,
+   "lon": 7.277
+  },
+  {
+   "name": "Caan",
+   "lat": 50.473,
+   "lon": 7.6126
+  },
+  {
+   "name": "Dattenberg",
+   "lat": 50.5536,
+   "lon": 7.2939
+  },
+  {
+   "name": "Datzeroth",
+   "lat": 50.5064,
+   "lon": 7.4304
+  },
+  {
+   "name": "Dedenbach",
+   "lat": 50.4826,
+   "lon": 7.1726
+  },
+  {
+   "name": "Depot",
+   "lat": 50.3913,
+   "lon": 7.5355
+  },
+  {
+   "name": "Dernbach",
+   "lat": 50.5446,
+   "lon": 7.5984
+  },
+  {
+   "name": "Dieblich",
+   "lat": 50.3153,
+   "lon": 7.4719
+  },
+  {
+   "name": "Ehlingen",
+   "lat": 50.545,
+   "lon": 7.1946
+  },
+  {
+   "name": "Ehlscheid",
+   "lat": 50.5134,
+   "lon": 7.4661
+  },
+  {
+   "name": "Ehrenbreitstein",
+   "lat": 50.3593,
+   "lon": 7.6138
+  },
+  {
+   "name": "Eich",
+   "lat": 50.4274,
+   "lon": 7.3536
+  },
+  {
+   "name": "Ellingen",
+   "lat": 50.5484,
+   "lon": 7.5102
+  },
+  {
+   "name": "Engeln",
+   "lat": 50.4259,
+   "lon": 7.1481
+  },
+  {
+   "name": "Engers",
+   "lat": 50.4287,
+   "lon": 7.5455
+  },
+  {
+   "name": "Escherwiese",
+   "lat": 50.5394,
+   "lon": 7.4716
+  },
+  {
+   "name": "Ettringen",
+   "lat": 50.3575,
+   "lon": 7.2197
+  },
+  {
+   "name": "Feldkirchen",
+   "lat": 50.4516,
+   "lon": 7.4224
+  },
+  {
+   "name": "Franken",
+   "lat": 50.5011,
+   "lon": 7.2341
+  },
+  {
+   "name": "Friedland",
+   "lat": 50.3138,
+   "lon": 7.6285
+  },
+  {
+   "name": "Galenberg",
+   "lat": 50.4402,
+   "lon": 7.1909
+  },
+  {
+   "name": "Gartenstadt",
+   "lat": 50.3929,
+   "lon": 7.6205
+  },
+  {
+   "name": "Gierend",
+   "lat": 50.5593,
+   "lon": 7.5216
+  },
+  {
+   "name": "Gimmigen",
+   "lat": 50.5563,
+   "lon": 7.1668
+  },
+  {
+   "name": "Gladbach",
+   "lat": 50.4592,
+   "lon": 7.5206
+  },
+  {
+   "name": "Glees",
+   "lat": 50.4331,
+   "lon": 7.2432
+  },
+  {
+   "name": "Glockscheid",
+   "lat": 50.5461,
+   "lon": 7.4232
+  },
+  {
+   "name": "Goldgrube",
+   "lat": 50.3544,
+   "lon": 7.5796
+  },
+  {
+   "name": "Goldscheid",
+   "lat": 50.5586,
+   "lon": 7.4588
+  },
+  {
+   "name": "Gönnersdorf",
+   "lat": 50.4811,
+   "lon": 7.266
+  },
+  {
+   "name": "Güls",
+   "lat": 50.344,
+   "lon": 7.5482
+  },
+  {
+   "name": "Gumschlag",
+   "lat": 50.4065,
+   "lon": 7.617
+  },
+  {
+   "name": "Hain",
+   "lat": 50.4494,
+   "lon": 7.1777
+  },
+  {
+   "name": "Hammerstein",
+   "lat": 50.4791,
+   "lon": 7.3484
+  },
+  {
+   "name": "Hardert",
+   "lat": 50.5159,
+   "lon": 7.5152
+  },
+  {
+   "name": "Hausen",
+   "lat": 50.3306,
+   "lon": 7.2699
+  },
+  {
+   "name": "Hausen (Wied)",
+   "lat": 50.5422,
+   "lon": 7.4074
+  },
+  {
+   "name": "Heddesdorf",
+   "lat": 50.4432,
+   "lon": 7.4723
+  },
+  {
+   "name": "Heddesdorfer Berg",
+   "lat": 50.4493,
+   "lon": 7.4755
+  },
+  {
+   "name": "Heimbach-Weis",
+   "lat": 50.4501,
+   "lon": 7.5438
+  },
+  {
+   "name": "Heimersheim",
+   "lat": 50.5426,
+   "lon": 7.1761
+  },
+  {
+   "name": "Heppingen",
+   "lat": 50.5512,
+   "lon": 7.1646
+  },
+  {
+   "name": "Hesseln",
+   "lat": 50.5601,
+   "lon": 7.3561
+  },
+  {
+   "name": "Holzwiesen",
+   "lat": 50.4543,
+   "lon": 7.1665
+  },
+  {
+   "name": "Horchheim",
+   "lat": 50.3286,
+   "lon": 7.6006
+  },
+  {
+   "name": "Horchheimer Höhe",
+   "lat": 50.3294,
+   "lon": 7.6107
+  },
+  {
+   "name": "Irlich",
+   "lat": 50.4444,
+   "lon": 7.4438
+  },
+  {
+   "name": "Isenburg",
+   "lat": 50.4753,
+   "lon": 7.5918
+  },
+  {
+   "name": "Jahrsfeld",
+   "lat": 50.5387,
+   "lon": 7.5176
+  },
+  {
+   "name": "Kaltenengers",
+   "lat": 50.4157,
+   "lon": 7.5442
+  },
+  {
+   "name": "Kärlich",
+   "lat": 50.3879,
+   "lon": 7.485
+  },
+  {
+   "name": "Karthause",
+   "lat": 50.3427,
+   "lon": 7.5737
+  },
+  {
+   "name": "Kell",
+   "lat": 50.4489,
+   "lon": 7.3075
+  },
+  {
+   "name": "Kerben",
+   "lat": 50.3104,
+   "lon": 7.3591
+  },
+  {
+   "name": "Kesselheim",
+   "lat": 50.3976,
+   "lon": 7.5845
+  },
+  {
+   "name": "Kettig",
+   "lat": 50.3981,
+   "lon": 7.4616
+  },
+  {
+   "name": "Kirchesch",
+   "lat": 50.3733,
+   "lon": 7.1549
+  },
+  {
+   "name": "Kirchwald",
+   "lat": 50.3711,
+   "lon": 7.1532
+  },
+  {
+   "name": "Kleinmaischeid",
+   "lat": 50.514,
+   "lon": 7.6073
+  },
+  {
+   "name": "Kobern-Gondorf",
+   "lat": 50.307,
+   "lon": 7.4583
+  },
+  {
+   "name": "Koblenz",
+   "lat": 50.357,
+   "lon": 7.589
+  },
+  {
+   "name": "Koisdorf",
+   "lat": 50.5303,
+   "lon": 7.2427
+  },
+  {
+   "name": "Königsbach",
+   "lat": 50.323,
+   "lon": 7.5845
+  },
+  {
+   "name": "Königsfeld",
+   "lat": 50.4987,
+   "lon": 7.1769
+  },
+  {
+   "name": "Kottenheim",
+   "lat": 50.3481,
+   "lon": 7.2548
+  },
+  {
+   "name": "Kretz",
+   "lat": 50.3951,
+   "lon": 7.3602
+  },
+  {
+   "name": "Kruft",
+   "lat": 50.3874,
+   "lon": 7.3388
+  },
+  {
+   "name": "Kürrenberg",
+   "lat": 50.3381,
+   "lon": 7.158
+  },
+  {
+   "name": "Kurtscheid",
+   "lat": 50.5355,
+   "lon": 7.4648
+  },
+  {
+   "name": "Lahnstein",
+   "lat": 50.309,
+   "lon": 7.6045
+  },
+  {
+   "name": "Lay",
+   "lat": 50.3217,
+   "lon": 7.5417
+  },
+  {
+   "name": "Leubsdorf",
+   "lat": 50.5463,
+   "lon": 7.2882
+  },
+  {
+   "name": "Leutesdorf",
+   "lat": 50.4504,
+   "lon": 7.3865
+  },
+  {
+   "name": "Löhndorf",
+   "lat": 50.53,
+   "lon": 7.2018
+  },
+  {
+   "name": "Lohrsdorf",
+   "lat": 50.5515,
+   "lon": 7.1865
+  },
+  {
+   "name": "Lonnig",
+   "lat": 50.3107,
+   "lon": 7.4053
+  },
+  {
+   "name": "Lützel",
+   "lat": 50.3679,
+   "lon": 7.5952
+  },
+  {
+   "name": "Lützingen",
+   "lat": 50.4665,
+   "lon": 7.2805
+  },
+  {
+   "name": "Mallendar",
+   "lat": 50.3885,
+   "lon": 7.6232
+  },
+  {
+   "name": "Mallendarer Berg",
+   "lat": 50.3925,
+   "lon": 7.6306
+  },
+  {
+   "name": "Mayen",
+   "lat": 50.327,
+   "lon": 7.223
+  },
+  {
+   "name": "Meinborn",
+   "lat": 50.4956,
+   "lon": 7.5614
+  },
+  {
+   "name": "Melsbach",
+   "lat": 50.4872,
+   "lon": 7.4797
+  },
+  {
+   "name": "Mendig",
+   "lat": 50.3721,
+   "lon": 7.2812
+  },
+  {
+   "name": "Metternich",
+   "lat": 50.366,
+   "lon": 7.5567
+  },
+  {
+   "name": "Miesenheim",
+   "lat": 50.4015,
+   "lon": 7.4092
+  },
+  {
+   "name": "Monreal",
+   "lat": 50.2991,
+   "lon": 7.1619
+  },
+  {
+   "name": "Moselweiß",
+   "lat": 50.3524,
+   "lon": 7.5595
+  },
+  {
+   "name": "Mülheim",
+   "lat": 50.3866,
+   "lon": 7.502
+  },
+  {
+   "name": "Mülheim-Kärlich",
+   "lat": 50.3869,
+   "lon": 7.4975
+  },
+  {
+   "name": "Mülhofen",
+   "lat": 50.4285,
+   "lon": 7.5546
+  },
+  {
+   "name": "Namedy",
+   "lat": 50.4528,
+   "lon": 7.3635
+  },
+  {
+   "name": "Nauort",
+   "lat": 50.4658,
+   "lon": 7.626
+  },
+  {
+   "name": "Nettesürsch",
+   "lat": 50.317,
+   "lon": 7.2927
+  },
+  {
+   "name": "Neuendorf",
+   "lat": 50.3755,
+   "lon": 7.6062
+  },
+  {
+   "name": "Neuwied",
+   "lat": 50.4336,
+   "lon": 7.4615
+  },
+  {
+   "name": "Nickenich",
+   "lat": 50.4124,
+   "lon": 7.3271
+  },
+  {
+   "name": "Niederberg",
+   "lat": 50.3707,
+   "lon": 7.6276
+  },
+  {
+   "name": "Niederbieber",
+   "lat": 50.4626,
+   "lon": 7.4729
+  },
+  {
+   "name": "Niederbreitbach",
+   "lat": 50.53,
+   "lon": 7.4176
+  },
+  {
+   "name": "Niederdürenbach",
+   "lat": 50.4567,
+   "lon": 7.1832
+  },
+  {
+   "name": "Niederhofen",
+   "lat": 50.5606,
+   "lon": 7.6037
+  },
+  {
+   "name": "Niederhonnefeld",
+   "lat": 50.5444,
+   "lon": 7.5042
+  },
+  {
+   "name": "Niederlahnstein",
+   "lat": 50.3145,
+   "lon": 7.6022
+  },
+  {
+   "name": "Niederlützingen",
+   "lat": 50.4749,
+   "lon": 7.3023
+  },
+  {
+   "name": "Niederraden",
+   "lat": 50.538,
+   "lon": 7.5352
+  },
+  {
+   "name": "Niederwerth",
+   "lat": 50.3955,
+   "lon": 7.6097
+  },
+  {
+   "name": "Niederzissen",
+   "lat": 50.4586,
+   "lon": 7.2225
+  },
+  {
+   "name": "Nitztal",
+   "lat": 50.3481,
+   "lon": 7.1529
+  },
+  {
+   "name": "Oberbieber",
+   "lat": 50.4737,
+   "lon": 7.5016
+  },
+  {
+   "name": "Oberdürenbach",
+   "lat": 50.4666,
+   "lon": 7.1608
+  },
+  {
+   "name": "Oberhonnefeld",
+   "lat": 50.5526,
+   "lon": 7.5165
+  },
+  {
+   "name": "Oberlahnstein",
+   "lat": 50.3012,
+   "lon": 7.6101
+  },
+  {
+   "name": "Oberraden",
+   "lat": 50.548,
+   "lon": 7.534
+  },
+  {
+   "name": "Oberwerth",
+   "lat": 50.3373,
+   "lon": 7.5902
+  },
+  {
+   "name": "Oberzissen",
+   "lat": 50.4535,
+   "lon": 7.1994
+  },
+  {
+   "name": "Ochtendung",
+   "lat": 50.3493,
+   "lon": 7.3892
+  },
+  {
+   "name": "Pfaffendorf",
+   "lat": 50.3433,
+   "lon": 7.6022
+  },
+  {
+   "name": "Pfaffendorfer Höhe",
+   "lat": 50.3384,
+   "lon": 7.6129
+  },
+  {
+   "name": "Plaidt",
+   "lat": 50.3924,
+   "lon": 7.3905
+  },
+  {
+   "name": "Polch",
+   "lat": 50.2987,
+   "lon": 7.313
+  },
+  {
+   "name": "Rauental",
+   "lat": 50.3625,
+   "lon": 7.5784
+  },
+  {
+   "name": "Rengsdorf",
+   "lat": 50.503,
+   "lon": 7.4963
+  },
+  {
+   "name": "Reudelsterz",
+   "lat": 50.3171,
+   "lon": 7.1556
+  },
+  {
+   "name": "Rheinbrohl",
+   "lat": 50.4977,
+   "lon": 7.3302
+  },
+  {
+   "name": "Rieden",
+   "lat": 50.3951,
+   "lon": 7.1801
+  },
+  {
+   "name": "Rodenbach",
+   "lat": 50.4629,
+   "lon": 7.449
+  },
+  {
+   "name": "Rübenach",
+   "lat": 50.37,
+   "lon": 7.5192
+  },
+  {
+   "name": "Ruitsch",
+   "lat": 50.3193,
+   "lon": 7.3468
+  },
+  {
+   "name": "Rüscheid",
+   "lat": 50.5222,
+   "lon": 7.5636
+  },
+  {
+   "name": "Saffig",
+   "lat": 50.383,
+   "lon": 7.417
+  },
+  {
+   "name": "Sankt Johann",
+   "lat": 50.3476,
+   "lon": 7.1962
+  },
+  {
+   "name": "Sankt Sebastian",
+   "lat": 50.4118,
+   "lon": 7.5627
+  },
+  {
+   "name": "Sayn",
+   "lat": 50.4374,
+   "lon": 7.5712
+  },
+  {
+   "name": "Schalkenbach",
+   "lat": 50.4938,
+   "lon": 7.1496
+  },
+  {
+   "name": "Schönstatt",
+   "lat": 50.4034,
+   "lon": 7.6251
+  },
+  {
+   "name": "Segendorf",
+   "lat": 50.4673,
+   "lon": 7.4593
+  },
+  {
+   "name": "Siechhaustal",
+   "lat": 50.3131,
+   "lon": 7.5862
+  },
+  {
+   "name": "Sinzig",
+   "lat": 50.5452,
+   "lon": 7.2491
+  },
+  {
+   "name": "Straßenhaus",
+   "lat": 50.5415,
+   "lon": 7.5173
+  },
+  {
+   "name": "Stromberg",
+   "lat": 50.4568,
+   "lon": 7.5987
+  },
+  {
+   "name": "Südliche Vorstadt",
+   "lat": 50.3466,
+   "lon": 7.5914
+  },
+  {
+   "name": "Thalhausen",
+   "lat": 50.5031,
+   "lon": 7.5825
+  },
+  {
+   "name": "Thür",
+   "lat": 50.3575,
+   "lon": 7.276
+  },
+  {
+   "name": "Torney",
+   "lat": 50.4606,
+   "lon": 7.489
+  },
+  {
+   "name": "Trimbs",
+   "lat": 50.3241,
+   "lon": 7.3
+  },
+  {
+   "name": "Überdorf",
+   "lat": 50.5568,
+   "lon": 7.5862
+  },
+  {
+   "name": "Urbach",
+   "lat": 50.56,
+   "lon": 7.5866
+  },
+  {
+   "name": "Urbar",
+   "lat": 50.3817,
+   "lon": 7.6248
+  },
+  {
+   "name": "Urmitz",
+   "lat": 50.4147,
+   "lon": 7.5191
+  },
+  {
+   "name": "Urmitz-Bahnhof",
+   "lat": 50.4014,
+   "lon": 7.5081
+  },
+  {
+   "name": "Vallendar",
+   "lat": 50.4001,
+   "lon": 7.6142
+  },
+  {
+   "name": "Verscheid",
+   "lat": 50.5571,
+   "lon": 7.447
+  },
+  {
+   "name": "Volkesfeld",
+   "lat": 50.3903,
+   "lon": 7.1501
+  },
+  {
+   "name": "Waldbreitbach",
+   "lat": 50.552,
+   "lon": 7.4178
+  },
+  {
+   "name": "Waldesch",
+   "lat": 50.3673,
+   "lon": 7.1479
+  },
+  {
+   "name": "Waldorf",
+   "lat": 50.4856,
+   "lon": 7.2294
+  },
+  {
+   "name": "Wallersheim",
+   "lat": 50.3832,
+   "lon": 7.6077
+  },
+  {
+   "name": "Wassenach",
+   "lat": 50.4337,
+   "lon": 7.2799
+  },
+  {
+   "name": "Wehr",
+   "lat": 50.4224,
+   "lon": 7.2108
+  },
+  {
+   "name": "Weibern",
+   "lat": 50.4062,
+   "lon": 7.1439
+  },
+  {
+   "name": "Weißenthurm",
+   "lat": 50.4145,
+   "lon": 7.4558
+  },
+  {
+   "name": "Weitersburg",
+   "lat": 50.4125,
+   "lon": 7.5986
+  },
+  {
+   "name": "Welling",
+   "lat": 50.3291,
+   "lon": 7.3135
+  },
+  {
+   "name": "Westum",
+   "lat": 50.5381,
+   "lon": 7.2328
+  },
+  {
+   "name": "Winningen",
+   "lat": 50.3139,
+   "lon": 7.5182
+  },
+  {
+   "name": "Wolfenacker",
+   "lat": 50.5231,
+   "lon": 7.438
+  },
+  {
+   "name": "Wolken",
+   "lat": 50.3381,
+   "lon": 7.4688
+  },
+  {
+   "name": "Wollscheid",
+   "lat": 50.4447,
+   "lon": 7.1455
+  },
+  {
+   "name": "Wüscheid",
+   "lat": 50.5477,
+   "lon": 7.4345
+  }
+ ]
+}

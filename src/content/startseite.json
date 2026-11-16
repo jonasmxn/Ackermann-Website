@@ -1,0 +1,28 @@
+{
+  "titel": "Massiv gebaut. Schlüsselfertig übergeben.",
+  "einleitung": "Seit 1948 bauen wir Wohnhäuser, Geschäftshäuser und Hallen zwischen Koblenz, Mayen, Neuwied und Ahrweiler. Vom Fundament bis zur Schlüsselübergabe aus einer Hand.",
+  "kopfbild": "/bilder/referenzen/mehrfamilienwohnhaus-kurhotel-bad-breisig.jpg",
+  "kopfbild_text": "Mehrfamilienwohnhaus Kurhotel, Bad Breisig",
+  "phasen_titel": "So entsteht Ihr Haus",
+  "phasen_text": "Vier Abschnitte, ein Ansprechpartner. Wählen Sie eine Phase oder bewegen Sie den Regler.",
+  "phasen": [
+    {
+      "name": "Fundament",
+      "text": "Erdarbeiten, Bodenplatte und Keller. Hier beginnt unser Tief- und Ingenieurbau."
+    },
+    {
+      "name": "Rohbau",
+      "text": "Mauerwerk und Betondecken, Geschoss für Geschoss mit eigenen Leuten."
+    },
+    {
+      "name": "Ausbau",
+      "text": "Innen- und Außenputz, Pflasterarbeiten und Außenanlagen."
+    },
+    {
+      "name": "Schlüsselfertig",
+      "text": "Ein Ansprechpartner bis zur Übergabe. Sie ziehen ein."
+    }
+  ],
+  "bauvorhaben_titel": "Aktuelle Bauvorhaben",
+  "bauvorhaben_text": "Wir beraten Sie beim Kauf und Verkauf von Immobilien und vermarkten Eigentumswohnungen, Einfamilienhäuser und Gewerbebauten rund um Andernach."
+}

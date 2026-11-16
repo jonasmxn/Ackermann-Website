@@ -1,0 +1,29 @@
+{
+  "eintraege": [
+    {
+      "titel": "Schlüsselfertig bauen",
+      "text": "Wohn- und Geschäftshäuser von der Planung bis zur Übergabe, massiv gebaut.",
+      "bauart": "Wohnen"
+    },
+    {
+      "titel": "Rohbau",
+      "text": "Hoch-, Tief- und Ingenieurbau: Wir erstellen Rohbauten für private und gewerbliche Bauherren.",
+      "bauart": "Wohnen"
+    },
+    {
+      "titel": "Hallen und Gewerbe",
+      "text": "Lagerhallen, Werkstätten und Gewerbebauten, zum Beispiel für das THW in Andernach und Neuwied.",
+      "bauart": "Hallen"
+    },
+    {
+      "titel": "Sanierung und Kleinbaustellen",
+      "text": "Garagen, Sanierungen an Bestandshäusern, Trockenlegung von Kellern und vieles mehr.",
+      "bauart": "Kleinbaustellen"
+    },
+    {
+      "titel": "Putz und Außenanlagen",
+      "text": "Innen- und Außenputz, Pflasterarbeiten und die Gestaltung Ihrer Außenanlagen.",
+      "bauart": ""
+    }
+  ]
+}

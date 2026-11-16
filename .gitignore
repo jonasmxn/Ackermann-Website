@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+*.log
+assets/haus.glb
+assets/haus-glb.js
+assets/*.json

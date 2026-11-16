@@ -1,0 +1,46 @@
+{
+  "titel": "Seit 1948 in Familienhand",
+  "text": "Die Ackermann Bau-GmbH aus Andernach-Miesenheim wird heute in dritter Generation geführt. Unsere vielseitig aufgestellten Mitarbeiter decken das Bauwesen vom Rohbau bis zum Putz ab.",
+  "bild": "/bilder/ueber-uns.jpg",
+  "stationen": [
+    {
+      "jahr": "1948",
+      "text": "Karl Ackermann gründet das Unternehmen."
+    },
+    {
+      "jahr": "2. Generation",
+      "text": "Dipl.-Ing. Rolf Ackermann steigt ein."
+    },
+    {
+      "jahr": "3. Generation",
+      "text": "Dipl.-Ing. Oliver Ackermann steigt ein."
+    }
+  ],
+  "partner": [
+    {
+      "name": "Hamann Baustoffe",
+      "logo": "/bilder/partner/logo-hamann.png",
+      "url": "https://www.hamann-baustoffe.de/"
+    },
+    {
+      "name": "E/D/E Baucenter",
+      "logo": "/bilder/partner/logo_EDBaucenter.png",
+      "url": "https://ed-baucenter.de/"
+    },
+    {
+      "name": "Handwerkskammer Koblenz",
+      "logo": "/bilder/partner/logo_hwk_koblenz.png",
+      "url": "https://www.hwk-koblenz.de/"
+    },
+    {
+      "name": "BG BAU",
+      "logo": "/bilder/partner/logo-bg-bau.png",
+      "url": "https://www.bgbau.de/"
+    },
+    {
+      "name": "Bauwirtschaft Rheinland-Pfalz",
+      "logo": "/bilder/partner/logo-wirtschaft-rheinland-pfalz.png",
+      "url": "https://www.bauwirtschaft-rlp.de/"
+    }
+  ]
+}

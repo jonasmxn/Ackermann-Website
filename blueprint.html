@@ -1,0 +1,462 @@
+<title>Blueprint Ackermann Bau</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: ein Plansatz. Plankopf oben, danach nummerierte Blätter in einer Spalte; die 3D-Bühne ist die einzige dunkle Fläche. */
+:root{
+  --bg:#f2f5f9; --surface:#ffffff; --ink:#15202c; --muted:#566577; --line:#d3dbe5;
+  --accent:#2a69a8; --accent-soft:#e2edf8; --signal:#b4561a; --signal-soft:#fbeee4;
+  --stage:#0e2238; --stage-ink:#dbe8f6; --stage-muted:#8fa9c4; --stage-line:#2a4868;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d151f; --surface:#141f2d; --ink:#e5ecf4; --muted:#93a4b7; --line:#25364a;
+    --accent:#6dade9; --accent-soft:#182c44; --signal:#e39256; --signal-soft:#33221a;
+    --stage:#091827; --stage-ink:#dbe8f6; --stage-muted:#8fa9c4; --stage-line:#24405e;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d151f; --surface:#141f2d; --ink:#e5ecf4; --muted:#93a4b7; --line:#25364a;
+  --accent:#6dade9; --accent-soft:#182c44; --signal:#e39256; --signal-soft:#33221a;
+  --stage:#091827; --stage-ink:#dbe8f6; --stage-muted:#8fa9c4; --stage-line:#24405e;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding-block:32px 72px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:64px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.12}
+h1{font-size:clamp(2rem,5.2vw,3.4rem);font-weight:700;letter-spacing:-.015em}
+h2{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:600}
+h3{font-size:1.08rem;font-weight:600}
+p{margin:0;max-width:66ch}
+.mono{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lead{font-size:1.12rem;color:var(--muted)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Plankopf */
+.plankopf{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--surface)}
+.plankopf div{padding:10px 14px;border-right:1px solid var(--line);min-width:0}
+.plankopf div:last-child{border-right:0}
+.plankopf dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.plankopf dd{margin:2px 0 0;font-weight:500;font-size:.92rem;overflow-wrap:anywhere}
+dl{margin:0}
+@media (max-width:640px){.plankopf{grid-template-columns:1fr 1fr}.plankopf div:nth-child(2){border-right:0}.plankopf div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+.intro{display:flex;flex-direction:column;gap:20px}
+.intro figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.intro img{width:100%;height:auto;display:block;aspect-ratio:1344/752;object-fit:cover;background:var(--stage)}
+figcaption{font-size:.82rem;color:var(--muted)}
+
+section{display:flex;flex-direction:column;gap:20px}
+.head{display:flex;flex-direction:column;gap:8px;border-top:2px solid var(--ink);padding-top:14px}
+
+/* 3D-Bühne */
+.stage{background:var(--stage);color:var(--stage-ink);display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}
+.view{position:relative;aspect-ratio:4/3;max-width:100%;min-width:0;
+  background-image:linear-gradient(var(--stage-line) 1px,transparent 1px),linear-gradient(90deg,var(--stage-line) 1px,transparent 1px);
+  background-size:32px 32px;background-position:-1px -1px}
+.view canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+.view canvas:active{cursor:grabbing}
+.view .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8%;mix-blend-mode:normal}
+.view .hint{position:absolute;left:12px;bottom:10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--stage-muted)}
+.view .hoehe{position:absolute;right:12px;top:10px;font-family:var(--mono);font-size:.72rem;color:var(--stage-ink);text-align:right;font-variant-numeric:tabular-nums}
+.panel{padding:22px;display:flex;flex-direction:column;gap:22px;border-left:1px solid var(--stage-line);min-width:0}
+.panel .mono{color:var(--stage-muted)}
+.panel h3{font-size:1.5rem}
+.panel p{color:var(--stage-muted);font-size:.92rem}
+.ctl{display:flex;flex-direction:column;gap:8px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font:500 .85rem var(--body);color:var(--stage-ink);background:transparent;border:1px solid var(--stage-line);padding:7px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--stage-ink);color:var(--stage);border-color:var(--stage-ink)}
+input[type=range]{width:100%;accent-color:#6dade9}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.64rem;color:var(--stage-muted);text-transform:uppercase;letter-spacing:.04em}
+@media (max-width:760px){.stage{grid-template-columns:1fr}.panel{border-left:0;border-top:1px solid var(--stage-line)}}
+
+/* Befunde */
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;background:var(--surface);border:1px solid var(--line)}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line);font-size:.93rem}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;width:27%}
+.tag{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;margin-bottom:6px}
+.tag.krit{background:var(--signal-soft);color:var(--signal)}
+.tag.norm{background:var(--accent-soft);color:var(--accent)}
+code{font-family:var(--mono);font-size:.85em;background:var(--accent-soft);padding:1px 5px;overflow-wrap:anywhere}
+.staerken{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.staerken div{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.staerken b{font-family:var(--display);font-size:1.5rem;display:block;font-variant-numeric:tabular-nums}
+.staerken span{font-size:.88rem;color:var(--muted)}
+
+/* Sitemap */
+.vergleich{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.vergleich > div{display:flex;flex-direction:column;gap:10px;min-width:0}
+.tree{list-style:none;margin:0;padding:0;border:1px solid var(--line);background:var(--surface)}
+.tree > li{padding:11px 14px;border-bottom:1px solid var(--line)}
+.tree > li:last-child{border-bottom:0}
+.tree b{font-weight:600}
+.tree small{display:block;color:var(--muted);font-size:.85rem}
+.tree.alt{background:transparent;color:var(--muted)}
+.tree.alt b{font-weight:500;color:var(--ink)}
+
+/* Wireframe */
+.wire{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;align-items:start}
+.screen{border:1px solid var(--ink);background:var(--surface);padding:8px;display:flex;flex-direction:column;gap:6px}
+.blk{border:1px dashed var(--muted);font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;justify-content:center;text-align:center;padding:4px}
+.blk.nav{height:22px;border-style:solid}
+.blk.hero{height:120px;background:var(--stage);color:var(--stage-ink);border-color:var(--stage)}
+.blk.row{height:54px}.blk.tall{height:84px}.blk.cta{height:40px;background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.schritte{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:s}
+.schritte li{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:4px 8px;counter-increment:s}
+.schritte li::before{content:counter(s);font-family:var(--mono);color:var(--accent);font-size:.9rem;padding-top:2px}
+.schritte h3,.schritte p{grid-column:2}
+.schritte p{color:var(--muted);font-size:.93rem}
+@media (max-width:700px){.wire{grid-template-columns:1fr}.screen{max-width:300px}}
+
+/* 3D-Bausteine */
+.bausteine{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.bausteine article{padding:18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px;background:var(--surface);min-width:0}
+.bausteine p{font-size:.92rem;color:var(--muted)}
+.bausteine .mono{color:var(--accent)}
+.kette{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.9rem}
+.kette span{border:1px solid var(--line);background:var(--surface);padding:6px 10px}
+.kette i{font-style:normal;color:var(--muted)}
+
+.fragen{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px;max-width:70ch}
+.note{font-size:.84rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+</style>
+
+<div class="wrap">
+
+  <header class="intro">
+    <dl class="plankopf">
+      <div><dt>Projekt</dt><dd>Relaunch ackermann-andernach.de</dd></div>
+      <div><dt>Planinhalt</dt><dd>Blueprint mit 3D-Prototyp</dd></div>
+      <div><dt>Stand</dt><dd>16.11.2026 · Vorentwurf</dd></div>
+      <div><dt>Blätter</dt><dd>01–06</dd></div>
+    </dl>
+    <h1>Vom Rohbau zum Schlüssel, auf einer Seite sichtbar.</h1>
+    <p class="lead">Die bestehende Website der Ackermann Bau-GmbH zeigt 18 Referenzen und 78 Jahre Firmengeschichte, erklärt aber kaum etwas davon. Dieser Blueprint ordnet die Inhalte neu und setzt ein drehbares 3D-Gebäudemodell als Leitmotiv ein.</p>
+    <figure>
+      <img src="assets/hero.png" alt="Stimmungsbild: links ein Mehrfamilienhaus im Rohbau mit Gerüst, rechts dasselbe Haus fertig verputzt und beleuchtet, im Hintergrund das Rheintal">
+      <figcaption>Stimmungsbild für den Seitenkopf, mit Higgsfield erzeugt. Kein reales Projekt der Firma.</figcaption>
+    </figure>
+  </header>
+
+  <section>
+    <div class="head">
+      <span class="mono">Blatt 01 · 3D-Prototyp</span>
+      <h2>Bauphasen-Modell</h2>
+      <p>So würde der Seitenkopf der neuen Startseite funktionieren: Das Gebäude lässt sich drehen und wächst mit dem Regler vom Fundament bis zum fertigen Haus. Das Modell ist aus exakten Körpern konstruiert, nach einer Bildvorlage aus Higgsfield.</p>
+    </div>
+    <div class="stage">
+      <div class="view" id="view">
+        <img class="poster" id="poster" src="assets/model_src.png" alt="Architekturmodell eines dreigeschossigen Mehrfamilienhauses mit Staffelgeschoss">
+        <canvas id="c" aria-label="Drehbares 3D-Modell eines Mehrfamilienhauses" hidden></canvas>
+        <div class="hoehe" id="hoehe"></div>
+        <div class="hint" id="hint">Modell wird geladen</div>
+      </div>
+      <div class="panel">
+        <div class="ctl">
+          <span class="mono">Bauphase</span>
+          <h3 id="phase">Schlüsselfertig</h3>
+          <input type="range" id="bau" min="0" max="100" value="100" aria-label="Baufortschritt">
+          <div class="ticks"><span>Fundament</span><span>Rohbau</span><span>Fertig</span></div>
+        </div>
+        <div class="ctl">
+          <span class="mono">Darstellung</span>
+          <div class="seg" id="modes">
+            <button type="button" data-m="fertig" aria-pressed="true">Fertig</button>
+            <button type="button" data-m="roh" aria-pressed="false">Rohbau</button>
+            <button type="button" data-m="draht" aria-pressed="false">Drahtmodell</button>
+          </div>
+        </div>
+        <div class="ctl">
+          <span class="mono">Bewegung</span>
+          <div class="seg">
+            <button type="button" id="spin" aria-pressed="true">Automatisch drehen</button>
+            <button type="button" id="replay" aria-pressed="false">Bau abspielen</button>
+          </div>
+        </div>
+        <p>Auf der echten Seite steuert das Scrollen den Regler. Jede Phase blendet dazu die passende Leistung ein, etwa Rohbau oder Innen- und Außenputz.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="mono">Blatt 02 · Bestandsaufnahme</span>
+      <h2>Was die heutige Website bremst</h2>
+      <p>Geprüft wurden Startseite, Über uns, Vermarktung, Kleinbaustellen, Kontakt und eine Projektseite.</p>
+    </div>
+    <div class="staerken">
+      <div><b>1948</b><span>Gründung, heute in dritter Generation. Steht nur auf der Unterseite „Über uns“.</span></div>
+      <div><b>18</b><span>Referenzen von Einfamilienhaus bis THW-Halle.</span></div>
+      <div><b>4</b><span>Regionen: Koblenz, Mayen-Koblenz, Neuwied, Ahrweiler.</span></div>
+      <div><b>8</b><span>Leistungen, von Schlüsselfertigbau bis Pflasterarbeiten.</span></div>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Befund</th><th>Was das bedeutet</th><th>Lösung im Neuentwurf</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag krit">Kritisch</span><br>Kontaktformular fehlt</td><td>Auf der Kontaktseite steht statt des Formulars der Text <code>[contact-form-7 id="331"]</code>. Anfragen gehen nur per Telefon oder E-Mail.</td><td>Anfrage-Assistent in drei Schritten: Bauart, Ort, Rückrufwunsch.</td></tr>
+          <tr><td><span class="tag krit">Kritisch</span><br>Projektseiten ohne Inhalt</td><td>Die Seite „Reihenhäuser – Andernach“ besteht aus Titel, einer Adresszeile und Fotos. Baujahr, Größe, Leistungsumfang fehlen.</td><td>Einheitlicher Projektsteckbrief mit Kennzahlen, Bauzeit, Leistungen und 3D-Modell.</td></tr>
+          <tr><td><span class="tag norm">Struktur</span><br>Sehr lange Startseite</td><td>Rund 10.700 px Höhe bei 800 px Breite. Alle 18 Referenzen stehen ungekürzt untereinander.</td><td>Sechs ausgewählte Referenzen, der Rest über „Alle Referenzen“.</td></tr>
+          <tr><td><span class="tag norm">Struktur</span><br>Filter mischt zwei Fragen</td><td>Zehn Filter in einer Reihe: Regionen (Koblenz, Neuwied) und Bauarten (Hallen, Wohnen) nebeneinander.</td><td>Zwei getrennte Filter: Bauart und Region.</td></tr>
+          <tr><td><span class="tag norm">Struktur</span><br>Menü ohne Leistungen</td><td>Das Hauptmenü listet Referenzkategorien. „Über uns“ und „Kontakt“ liegen in einer zweiten Leiste darüber. Was die Firma anbietet, steht nirgends im Menü.</td><td>Ein Menü mit fünf Punkten, siehe Blatt 03.</td></tr>
+          <tr><td><span class="tag norm">Auffindbarkeit</span><br>Lücken für Suchmaschinen</td><td>Keine Seitenbeschreibung, zwei Hauptüberschriften, 13 von 15 Bildern ohne Alternativtext.</td><td>Saubere Überschriften, Beschreibungen und Bildtexte je Seite.</td></tr>
+          <tr><td><span class="tag norm">Technik</span><br>Karte hinter Zustimmung</td><td>Die Google-Karte lädt erst nach Klick. Vorher bleibt eine leere Fläche mit Hinweistext.</td><td>Eigene 3D-Regionskarte ohne fremde Dienste, siehe Blatt 05.</td></tr>
+          <tr><td><span class="tag norm">Technik</span><br>Schwerer Bild-Slider</td><td>WordPress mit Revolution Slider und 18 Skripten für eine Seite, die fast nur Text und Fotos zeigt.</td><td>Statische Seite, 3D nur dort, wo es etwas erklärt.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="mono">Blatt 03 · Seitenstruktur</span>
+      <h2>Aus sieben Menüpunkten in zwei Leisten werden fünf</h2>
+    </div>
+    <div class="vergleich">
+      <div>
+        <span class="mono">Heute</span>
+        <ul class="tree alt">
+          <li><b>Über uns · Kontakt</b><small>obere Leiste</small></li>
+          <li><b>Home</b></li>
+          <li><b>Vermarktung</b><small>ein Absatz, ein Projekt</small></li>
+          <li><b>Hallen · Gewerbe · Wohnen</b><small>jeweils eine gefilterte Referenzliste</small></li>
+          <li><b>Kleinbaustellen</b><small>ein Absatz, ein Beispiel</small></li>
+        </ul>
+      </div>
+      <div>
+        <span class="mono">Neu</span>
+        <ul class="tree">
+          <li><b>Leistungen</b><small>Schlüsselfertig bauen · Rohbau · Hallen und Gewerbe · Sanierung und Kleinbaustellen · Putz und Außenanlagen</small></li>
+          <li><b>Referenzen</b><small>Filter nach Bauart und Region, Projektsteckbrief mit 3D-Modell</small></li>
+          <li><b>Immobilien</b><small>Aktuelle Bauvorhaben, Kauf und Verkauf, Grundstücke</small></li>
+          <li><b>Unternehmen</b><small>Seit 1948, drei Generationen, Team, Partner und Verbände</small></li>
+          <li><b>Kontakt</b><small>Anfrage-Assistent, Anfahrt, Bürozeiten</small></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="mono">Blatt 04 · Startseite</span>
+      <h2>Aufbau der neuen Startseite</h2>
+    </div>
+    <div class="wire">
+      <div class="screen" aria-hidden="true">
+        <div class="blk nav">Logo · Menü · Anrufen</div>
+        <div class="blk hero">3D-Bauphasen-Modell</div>
+        <div class="blk row">Leistungen × 5</div>
+        <div class="blk tall">Referenzen × 6 + Regionskarte</div>
+        <div class="blk row">Seit 1948 · Zeitstrahl</div>
+        <div class="blk row">Aktuelle Bauvorhaben</div>
+        <div class="blk cta">Bauvorhaben anfragen</div>
+      </div>
+      <ol class="schritte">
+        <li><h3>Seitenkopf mit Bauphasen-Modell</h3><p>Ein Satz, was die Firma baut und wo. Daneben das 3D-Modell aus Blatt 01 und zwei Wege: Bauvorhaben anfragen oder Referenzen ansehen.</p></li>
+        <li><h3>Leistungen</h3><p>Fünf Felder mit je einem Satz. Jedes führt auf eine eigene Seite mit passenden Referenzen.</p></li>
+        <li><h3>Referenzen und Region</h3><p>Sechs ausgewählte Projekte, daneben die Karte der vier Landkreise mit allen Standorten.</p></li>
+        <li><h3>Seit 1948</h3><p>Karl, Rolf und Oliver Ackermann als kurzer Zeitstrahl. Dazu die Partner: Handwerkskammer Koblenz, BG BAU, Bauwirtschaft Rheinland-Pfalz.</p></li>
+        <li><h3>Aktuelle Bauvorhaben</h3><p>Was gerade entsteht und was zum Verkauf steht. Ersetzt den heutigen Menüpunkt „Vermarktung“.</p></li>
+        <li><h3>Anfrage</h3><p>Telefonnummer groß, darunter der Anfrage-Assistent. Bürozeiten Montag bis Freitag, 8 bis 17 Uhr.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="mono">Blatt 05 · 3D-Bausteine</span>
+      <h2>Vier Stellen, an denen 3D etwas erklärt</h2>
+      <p>3D kommt nur dorthin, wo es eine Frage beantwortet. Jeder Baustein hat ein Standbild als Ersatz für langsame Geräte.</p>
+    </div>
+    <div class="bausteine">
+      <article><span class="mono">A · Startseite</span><h3>Bauphasen-Modell</h3><p>Der Prototyp aus Blatt 01. Zeigt den Weg vom Fundament zum schlüsselfertigen Haus und verknüpft jede Phase mit einer Leistung.</p></article>
+      <article><span class="mono">B · Referenzen</span><h3>Regionskarte</h3><p>Reliefkarte von Rhein und Eifelrand mit einem Pin je Projekt. Ersetzt die Google-Karte und braucht keine Zustimmung.</p></article>
+      <article><span class="mono">C · Projektseite</span><h3>Drehbares Projektmodell</h3><p>Jede Referenz bekommt ein konstruiertes Modell zum Drehen, nach Fotos oder Plänen gebaut, mit eingeblendeten Kennzahlen.</p></article>
+      <article><span class="mono">D · Leistungen</span><h3>Wandaufbau im Schnitt</h3><p>Mauerwerk, Dämmung, Putz als auseinandergezogene Schichten. Erklärt, was „massiv gebaut“ heißt.</p></article>
+    </div>
+    <div>
+      <span class="mono">Herstellung der Modelle mit Higgsfield</span>
+    </div>
+    <div class="kette">
+      <span>Foto oder Bildidee</span><i>→</i><span>Higgsfield: freigestellte Bildvorlage</span><i>→</i><span>Maße und Gliederung ablesen</span><i>→</i><span>Gebäude aus exakten Körpern konstruieren</span><i>→</i><span>Einbau mit three.js</span>
+    </div>
+    <p>Gebäude werden konstruiert und nicht aus Bildern berechnet. Ein erster Versuch mit einem aus einem Bild berechneten Modell hatte unebene Wände. Konstruierte Modelle haben plane Flächen, scharfe Kanten und brauchen nur wenige Kilobyte. Higgsfield liefert die Vorlagen, die Stimmungsbilder und später Gelände oder Bepflanzung.</p>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="mono">Blatt 06 · Umsetzung</span>
+      <h2>Reihenfolge und offene Fragen</h2>
+    </div>
+    <ol class="schritte">
+      <li><h3>Inhalte sammeln</h3><p>Kennzahlen und Originalfotos zu den 18 Referenzen. Ohne sie bleiben die Projektseiten so leer wie heute.</p></li>
+      <li><h3>Gestaltung festlegen</h3><p>Das Blau der heutigen Seite bleibt als Erkennungsfarbe. Dazu kommen Schrift, Raster und Bildsprache.</p></li>
+      <li><h3>Startseite mit Baustein A bauen</h3><p>Statische Seite mit three.js. Kontaktformular und Anfrage-Assistent von Anfang an.</p></li>
+      <li><h3>Referenzen, Karte und Projektmodelle</h3><p>Bausteine B und C, zuerst für sechs Projekte.</p></li>
+      <li><h3>Übrige Seiten und Umzug</h3><p>Weiterleitungen von allen alten Adressen, damit bestehende Links und Suchergebnisse weiter funktionieren.</p></li>
+    </ol>
+    <h3>Vor dem Auftrag zu klären</h3>
+    <ul class="fragen">
+      <li>Soll die Firma Inhalte später selbst pflegen? Dann braucht die Seite ein Redaktionssystem, sonst reicht eine statische Seite.</li>
+      <li>Gibt es Originalfotos, Pläne oder Kennzahlen zu den Referenzen?</li>
+      <li>Welche der vier 3D-Bausteine sollen in die erste Fassung?</li>
+      <li>Gibt es Zugriff auf das bestehende WordPress, oder entsteht die neue Seite unabhängig davon?</li>
+      <li>An welche Adresse gehen Anfragen aus dem Formular?</li>
+    </ul>
+    <p class="note">Unabhängiger Konzeptentwurf. Diese Seite ist nicht die Website der Ackermann Bau-GmbH. Angaben zur Firma stammen von ackermann-andernach.de, abgerufen am 16.11.2026. Die Bilder sind KI-generiert. Bilder und 3D-Modell zeigen kein reales Gebäude.</p>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>
+(function(){
+  var view=document.getElementById('view'), canvas=document.getElementById('c'), poster=document.getElementById('poster');
+  var hint=document.getElementById('hint'), hoehe=document.getElementById('hoehe'), phase=document.getElementById('phase');
+  var bau=document.getElementById('bau'), spinBtn=document.getElementById('spin'), replay=document.getElementById('replay');
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fail(msg){ hint.textContent=msg; }
+  if(!window.THREE){ fail('3D nicht verfügbar, Standbild wird gezeigt'); return; }
+  var renderer;
+  try{ renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true}); }
+  catch(e){ fail('3D nicht verfügbar, Standbild wird gezeigt'); return; }
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.localClippingEnabled=true;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  var scene=new THREE.Scene();
+  var cam=new THREE.PerspectiveCamera(32,4/3,0.1,100);
+  scene.add(new THREE.HemisphereLight(0xffffff,0x55677c,0.72));
+  var sun=new THREE.DirectionalLight(0xffffff,0.6); sun.position.set(3,6,4); scene.add(sun);
+  var grid=new THREE.GridHelper(8,16,0x5b93cc,0x2a4868); scene.add(grid);
+  var pivot=new THREE.Group(); scene.add(pivot);
+  var plane=new THREE.Plane(new THREE.Vector3(0,-1,0),1000);
+  var H=2, yaw=-0.6, pitch=0.42, spin=!reduced, dragging=false, meshes=[], mode='fertig';
+  var roh=new THREE.MeshStandardMaterial({color:0xd9d2c0,roughness:0.95,side:THREE.DoubleSide,clippingPlanes:[plane],clipShadows:true});
+  var beton=new THREE.MeshStandardMaterial({color:0xa9a69f,roughness:0.95,side:THREE.DoubleSide,clippingPlanes:[plane],clipShadows:true});
+  var loch=new THREE.MeshStandardMaterial({color:0x23282e,roughness:1,side:THREE.DoubleSide,clippingPlanes:[plane],clipShadows:true});
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  sun.castShadow=true; sun.shadow.mapSize.set(2048,2048); sun.shadow.bias=-0.0004; sun.shadow.normalBias=0.012;
+  sun.shadow.camera.left=-3; sun.shadow.camera.right=3; sun.shadow.camera.top=3.5; sun.shadow.camera.bottom=-3; sun.shadow.camera.near=1; sun.shadow.camera.far=16;
+  var boden=new THREE.Mesh(new THREE.PlaneGeometry(8,8),new THREE.ShadowMaterial({opacity:0.4}));
+  boden.rotation.x=-Math.PI/2; boden.position.y=0.002; boden.receiveShadow=true; scene.add(boden);
+  var draht=new THREE.MeshBasicMaterial({color:0x8fc2f2,wireframe:true,clippingPlanes:[plane]});
+
+  function size(){ var w=view.clientWidth,h=view.clientHeight; if(!w||!h)return; renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix(); }
+  if(window.ResizeObserver) new ResizeObserver(size).observe(view); else window.addEventListener('resize',size);
+
+  function setBau(v){
+    v=Math.max(0,Math.min(100,v)); bau.value=v;
+    plane.constant = v>=100 ? 1000 : (v/100)*H+0.004;
+    phase.textContent = v<4?'Fundament':v<27?'Erdgeschoss im Rohbau':v<75?'Obergeschosse im Rohbau':v<99?'Staffelgeschoss und Dach':'Schlüsselfertig';
+    hoehe.textContent = 'Baufortschritt '+Math.round(v)+' %';
+  }
+  function setMode(m){
+    mode=m;
+    meshes.forEach(function(o){ var r=o.userData.role;
+      o.visible = !(m==='roh' && (r==='frame'||r==='rail'||r==='metal'));
+      o.material = m==='draht'?draht : m!=='roh'?o.userData.orig : (r==='wall'||r==='sockel')?roh : r==='glass'?loch : beton; });
+    document.querySelectorAll('#modes button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.m===m?'true':'false'); });
+  }
+  var anim=null;
+  function play(){
+    if(anim) cancelAnimationFrame(anim);
+    var t0=performance.now(), dur=4200;
+    replay.setAttribute('aria-pressed','true');
+    (function step(t){ var k=Math.min(1,(t-t0)/dur); setBau(100*(1-Math.pow(1-k,2)));
+      if(k<1) anim=requestAnimationFrame(step); else { anim=null; replay.setAttribute('aria-pressed','false'); } })(t0);
+  }
+
+  /* Haus aus exakten Quadern, Maße in Metern: 12 × 10 m Grundfläche, drei Vollgeschosse je 3 m, Staffelgeschoss 9 × 7,5 m */
+  function baueHaus(){
+    var g=new THREE.Group();
+    function M(c,o){ o=o||{}; o.color=c; o.side=THREE.DoubleSide; o.clippingPlanes=[plane]; o.clipShadows=true; if(o.roughness===undefined)o.roughness=0.9; return new THREE.MeshStandardMaterial(o); }
+    var mat={ wall:M(0xf3f1eb), sockel:M(0x9b9da0), dark:M(0x3b4046,{roughness:0.7}), frame:M(0x2f3439,{roughness:0.6}),
+      glass:M(0x5d7892,{roughness:0.15,metalness:0.35}), rail:M(0xbcd8e8,{transparent:true,opacity:0.32,roughness:0.1}),
+      metal:M(0xcfd4d9,{roughness:0.4,metalness:0.5}), slab:M(0xb6b3ab) };
+    function box(role,w,h,d,x,y,z){ var o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat[role]); o.position.set(x,y,z); o.userData.role=role; o.userData.orig=mat[role]; g.add(o); return o; }
+    function win(face,u,yc,w,h,hw,hd,oz){
+      oz=oz||0;
+      if(face==='f'||face==='b'){ var s=face==='f'?1:-1, z=oz+s*hd;
+        box('frame',w+0.18,h+0.18,0.12,u,yc,z); box('glass',w,h,0.15,u,yc,z);
+        if(w>2) box('frame',0.08,h,0.18,u,yc,z);
+      } else { var t=face==='r'?1:-1, x=t*hw;
+        box('frame',0.12,h+0.18,w+0.18,x,yc,oz+u); box('glass',0.15,h,w,x,yc,oz+u); }
+    }
+    function balkon(xc,y){
+      box('dark',3.2,0.18,1.4,xc,y,5.7);
+      box('rail',3.2,1.0,0.04,xc,y+0.59,6.38); box('rail',0.04,1.0,1.36,xc-1.58,y+0.59,5.7); box('rail',0.04,1.0,1.36,xc+1.58,y+0.59,5.7);
+      box('metal',3.24,0.05,0.07,xc,y+1.11,6.38);
+    }
+    box('slab',12.6,0.3,10.6,0,0.15,0);                       // Bodenplatte
+    box('sockel',12.08,0.5,10.08,0,0.55,0);                   // Sockel
+    for(var i=0;i<3;i++){
+      var y0=0.3+3*i;
+      box('wall',12,3,10,0,y0+1.5,0);
+      box('slab',11.6,0.2,9.6,0,y0+0.1,0);                    // Geschossdecke, im Schnitt sichtbar
+      win('f',-3.4,y0+1.55,2.6,2.1,6,5); win('f',3.4,y0+1.55,2.6,2.1,6,5);
+      if(i>0){ win('f',0,y0+1.7,1.4,1.4,6,5); balkon(-3.4,y0); balkon(3.4,y0); }
+      win('b',-3.6,y0+1.7,1.6,1.4,6,5); win('b',0,y0+1.7,1.2,1.4,6,5); win('b',3.6,y0+1.7,1.6,1.4,6,5);
+      win('l',-2.2,y0+1.7,1.0,1.6,6,5); win('l',2.2,y0+1.7,1.0,1.6,6,5);
+      win('r',-2.2,y0+1.7,1.0,1.6,6,5); win('r',2.2,y0+1.7,1.0,1.6,6,5);
+    }
+    win('f',0,0.3+1.25,1.6,2.4,6,5);                          // Haustür
+    box('dark',2.6,0.12,1.1,0,0.3+2.72,5.55);                 // Vordach
+    box('dark',12.3,0.2,10.3,0,9.4,0);                        // Attika
+    box('rail',11.9,1.0,0.04,0,10.0,4.95); box('rail',0.04,1.0,9.9,-5.95,10.0,0); box('rail',0.04,1.0,9.9,5.95,10.0,0);
+    box('metal',11.94,0.05,0.07,0,10.52,4.95); box('metal',0.07,0.05,9.94,-5.95,10.52,0); box('metal',0.07,0.05,9.94,5.95,10.52,0);
+    box('wall',9,2.8,7.5,0,10.9,-0.75);                       // Staffelgeschoss
+    box('slab',8.6,0.2,7.1,0,9.6,-0.75);
+    win('f',-2.4,10.85,2.6,2.1,4.5,3.75,-0.75); win('f',2.4,10.85,2.6,2.1,4.5,3.75,-0.75); win('f',0,11.0,1.2,1.4,4.5,3.75,-0.75);
+    win('l',0,11.0,1.0,1.6,4.5,3.75,-0.75); win('r',0,11.0,1.0,1.6,4.5,3.75,-0.75);
+    win('b',-2.2,11.0,1.4,1.4,4.5,3.75,-0.75); win('b',2.2,11.0,1.4,1.4,4.5,3.75,-0.75);
+    box('dark',9.4,0.2,7.9,0,12.4,-0.75);                     // Dach
+    return g;
+  }
+  (function(){
+    var m=baueHaus(), box=new THREE.Box3().setFromObject(m), s=new THREE.Vector3(); box.getSize(s);
+    var k=2.6/Math.max(s.x,s.y,s.z); m.scale.setScalar(k);
+    box.setFromObject(m); var c=new THREE.Vector3(); box.getCenter(c);
+    m.position.x-=c.x; m.position.z-=c.z; m.position.y-=box.min.y;
+    H=(box.max.y-box.min.y);
+    m.traverse(function(o){ if(o.isMesh){ o.castShadow=o.userData.role!=='rail'; o.receiveShadow=true; meshes.push(o); } });
+    pivot.add(m);
+    poster.hidden=true; canvas.hidden=false; size();
+    hint.textContent='Ziehen zum Drehen';
+    setBau(100); setMode('fertig');
+    if(!reduced) play();
+  })();
+
+  canvas.addEventListener('pointerdown',function(e){ dragging=true; canvas.setPointerCapture(e.pointerId); canvas._x=e.clientX; canvas._y=e.clientY; });
+  canvas.addEventListener('pointermove',function(e){ if(!dragging)return; yaw+=(e.clientX-canvas._x)*0.008; pitch=Math.max(0.08,Math.min(1.2,pitch+(e.clientY-canvas._y)*0.005)); canvas._x=e.clientX; canvas._y=e.clientY; });
+  ['pointerup','pointercancel'].forEach(function(n){ canvas.addEventListener(n,function(){ dragging=false; }); });
+  canvas.tabIndex=0;
+  canvas.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft'){yaw-=0.15;e.preventDefault();} if(e.key==='ArrowRight'){yaw+=0.15;e.preventDefault();} });
+  bau.addEventListener('input',function(){ if(anim){cancelAnimationFrame(anim);anim=null;replay.setAttribute('aria-pressed','false');} setBau(+bau.value); });
+  document.getElementById('modes').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) setMode(b.dataset.m); });
+  spinBtn.setAttribute('aria-pressed',spin?'true':'false');
+  spinBtn.addEventListener('click',function(){ spin=!spin; spinBtn.setAttribute('aria-pressed',spin?'true':'false'); });
+  replay.addEventListener('click',play);
+
+  var last=performance.now();
+  (function loop(t){
+    var dt=Math.min(0.05,(t-last)/1000); last=t;
+    if(spin&&!dragging) yaw+=dt*0.25;
+    pivot.rotation.y=yaw;
+    var d=7.2, ty=H*0.45;
+    cam.position.set(0,ty+d*Math.sin(pitch),d*Math.cos(pitch)); cam.lookAt(0,ty,0);
+    renderer.render(scene,cam);
+    requestAnimationFrame(loop);
+  })(last);
+  setBau(100);
+})();
+</script>

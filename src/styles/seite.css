@@ -1,0 +1,160 @@
+/* Ackermann Bau · Startseite. Helle Seite, Foto im Seitenkopf, Blau der bisherigen Website als sparsame Erkennungsfarbe. */
+:root {
+  --papier: #ffffff; --grau: #f3f5f8; --tinte: #15202c; --leise: #566577; --linie: #d3dbe5;
+  --blau: #2a69a8; --blau-hell: #e2edf8; --warm: #d9731f; --fuss: #1b2733;
+  --display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--papier); color: var(--tinte); font: 400 17px/1.6 var(--body); }
+img { max-width: 100%; height: auto; display: block; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.2rem, 4.6vw, 3.6rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 600; letter-spacing: -0.01em; }
+h3 { font-size: 1.18rem; font-weight: 600; }
+p { margin: 0; max-width: 62ch; }
+a { color: var(--blau); }
+:focus-visible { outline: 3px solid var(--blau); outline-offset: 2px; }
+button { font: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
+.innen { max-width: 1180px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+.marke { font: 400 0.78rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--leise); }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 12px; top: 12px; z-index: 30; background: var(--papier); padding: 8px 12px; }
+
+/* Kopfleiste */
+.kopf { position: sticky; top: 0; z-index: 20; background: var(--papier); border-bottom: 1px solid var(--linie); }
+.kopf .innen { display: flex; align-items: center; gap: 24px; min-height: 68px; }
+.logo img { height: 44px; width: auto; }
+.kopf nav { display: flex; gap: 22px; margin-left: auto; }
+.kopf nav a { color: var(--tinte); text-decoration: none; font-weight: 500; font-size: 0.95rem; padding: 6px 0; border-bottom: 2px solid transparent; }
+.kopf nav a:hover { border-color: var(--blau); }
+.anruf { background: var(--blau); color: #fff; text-decoration: none; font-weight: 600; padding: 9px 14px; white-space: nowrap; font-size: 0.95rem; }
+.anruf span { font-weight: 400; opacity: 0.85; }
+@media (max-width: 900px) {
+  .kopf .innen { flex-wrap: wrap; gap: 6px 16px; padding-block: 8px; }
+  .kopf nav { order: 3; width: 100%; margin: 0; gap: 18px; overflow-x: auto; padding-bottom: 2px; }
+  .anruf { margin-left: auto; }
+  .anruf span { display: none; }
+  html { scroll-padding-top: 110px; }
+}
+
+.knopf, .zeile button, .filter button { border: 1px solid var(--tinte); background: transparent; color: var(--tinte); text-decoration: none; padding: 11px 18px; font-weight: 600; font-size: 0.98rem; display: inline-block; }
+.knopf.voll, button.voll { background: var(--blau); border-color: var(--blau); color: #fff; }
+.knoepfe { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Seitenkopf mit Foto: Text steht links im hellen Himmel, das Gebäude rechts */
+.kopfbild { position: relative; display: grid; align-items: center; min-height: clamp(440px, 62vh, 640px); overflow: hidden; background: var(--grau); }
+.kopfbild > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 78% 42%; }
+.kopfbild::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 44%, rgba(255, 255, 255, 0) 70%); }
+.kopfbild .innen { position: relative; z-index: 2; width: 100%; padding-block: 48px; }
+.ansage { display: flex; flex-direction: column; gap: 20px; max-width: min(560px, 48vw); }
+@media (max-width: 760px) { .ansage { max-width: none; } }
+.einleitung { font-size: 1.12rem; }
+.bildzeile { position: absolute; z-index: 2; right: 0; bottom: 0; margin: 0; background: rgba(255, 255, 255, 0.9); padding: 5px 12px; font: 400 0.72rem var(--mono); letter-spacing: 0.04em; color: var(--leise); }
+@media (max-width: 760px) {
+  .kopfbild { display: flex; flex-direction: column; min-height: 0; background: var(--papier); }
+  .kopfbild > img { position: static; height: 46vw; min-height: 200px; object-position: 80% 40%; }
+  .kopfbild::before { display: none; }
+  .kopfbild .innen { padding-block: 28px 36px; }
+  .bildzeile { position: static; align-self: flex-end; order: -1; margin-top: -26px; z-index: 2; }
+  .kopfbild > img { order: -2; }
+}
+
+/* Abschnitte */
+.block { padding-block: clamp(48px, 8vw, 96px); }
+.block > .innen { display: flex; flex-direction: column; gap: 32px; }
+.block > .innen + .innen { margin-top: 48px; }
+.grau { background: var(--grau); }
+.titel { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.titel > p:not(.marke) { color: var(--leise); }
+.block > .innen.zwei { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 5vw, 64px); align-items: center; }
+@media (max-width: 800px) { .block > .innen.zwei { grid-template-columns: 1fr; } }
+
+.leistungen { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); border-top: 2px solid var(--tinte); }
+.leistungen article { padding: 20px 20px 24px 0; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--linie); }
+.leistungen p { color: var(--leise); font-size: 0.97rem; }
+.leistungen a { margin-top: auto; font-weight: 600; font-size: 0.92rem; }
+
+/* Bauphasen-Modell: ruhig, hell, neben dem Text */
+.phasen { display: flex; flex-direction: column; width: 100%; margin-top: 8px; border-top: 2px solid var(--tinte); }
+.phasen button { display: flex; align-items: baseline; gap: 14px; border: 0; border-bottom: 1px solid var(--linie); background: transparent; color: var(--tinte); padding: 12px 10px 12px 0; text-align: left; font: 600 1.08rem var(--display); }
+.phasen button span { font: 400 0.74rem var(--mono); color: var(--leise); }
+.phasen button[aria-pressed="true"] { color: var(--blau); box-shadow: inset 4px 0 0 var(--blau); padding-left: 14px; }
+.phasen button[aria-pressed="true"] span { color: var(--blau); }
+#phase-text { min-height: 3.3em; color: var(--tinte); }
+.modell { display: flex; flex-direction: column; min-width: 0; max-width: 520px; width: 100%; justify-self: end; }
+.sicht { position: relative; }
+#haus-sicht { aspect-ratio: 1 / 1; }
+.sicht canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: grab; }
+.sicht canvas:active { cursor: grabbing; }
+.hinweis, .stand { position: absolute; margin: 0; font: 400 0.7rem var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--leise); pointer-events: none; }
+.hinweis { left: 0; bottom: 6px; }
+.stand { right: 0; top: 6px; font-variant-numeric: tabular-nums; }
+.regler { display: flex; flex-direction: column; gap: 8px; padding-top: 10px; border-top: 1px solid var(--linie); }
+.regler label { font: 400 0.72rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--leise); }
+input[type="range"] { width: 100%; accent-color: var(--blau); }
+.zeile { display: flex; flex-wrap: wrap; gap: 8px; }
+.regler .zeile button { border-color: var(--linie); background: var(--papier); padding: 6px 12px; font-weight: 500; font-size: 0.85rem; }
+.regler .zeile button[aria-pressed="true"] { border-color: var(--tinte); }
+@media (max-width: 800px) { .modell { justify-self: center; } }
+
+/* Regionskarte */
+.karte { background: var(--grau); border: 1px solid var(--linie); }
+#karte-sicht { aspect-ratio: 16 / 9; min-height: 320px; overflow: hidden; }
+.pins { position: absolute; inset: 0; pointer-events: none; }
+.pin { position: absolute; left: 0; top: 0; pointer-events: auto; white-space: nowrap; font: 600 0.82rem var(--body); color: var(--tinte); background: #fff; border: 1px solid var(--tinte); padding: 2px 8px; box-shadow: 0 2px 6px rgba(21, 32, 44, 0.25); }
+.pin b { font-family: var(--mono); font-weight: 400; color: var(--blau); margin-left: 4px; }
+.pin[aria-pressed="true"] { background: var(--warm); border-color: var(--warm); color: #fff; }
+.pin[aria-pressed="true"] b { color: #fff; }
+.quelle { left: 0; bottom: 0; background: rgba(255, 255, 255, 0.88); padding: 4px 10px; text-transform: none; letter-spacing: 0; pointer-events: auto; }
+.quelle a { color: inherit; }
+.filter { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filter button { padding: 8px 14px; font-weight: 500; font-size: 0.92rem; border-color: var(--linie); background: var(--papier); }
+.filter button[aria-pressed="true"] { background: var(--tinte); border-color: var(--tinte); color: #fff; }
+#filter-stand { margin-left: auto; font: 400 0.78rem var(--mono); color: var(--leise); }
+.refs { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 28px 24px; }
+.ref, .angebot { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.ref img, .angebot img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--linie); }
+.ref div, .angebot div { display: flex; flex-direction: column; gap: 4px; }
+.ort { font: 400 0.74rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--blau); }
+.adresse, .kenn { color: var(--leise); font-size: 0.93rem; }
+
+.portrait { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; }
+.stationen { list-style: none; margin: 8px 0 0; padding: 0; width: 100%; border-top: 2px solid var(--tinte); }
+.stationen li { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--linie); }
+.stationen b { font-family: var(--display); font-weight: 600; }
+.partner { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px 36px; align-items: center; }
+.partner img { max-height: 46px; width: auto; }
+.block > .innen:has(.partner) { gap: 16px; }
+
+/* Kontakt */
+.kontakt .innen.zwei { align-items: start; }
+.gross { font: 700 clamp(1.9rem, 4vw, 2.7rem) var(--display); }
+.gross a { text-decoration: none; color: var(--tinte); }
+address { font-style: normal; }
+form { background: var(--papier); border: 1px solid var(--linie); padding: clamp(18px, 3vw, 28px); display: flex; flex-direction: column; gap: 16px; }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+legend { font: 600 1.3rem var(--display); padding: 0; margin-bottom: 12px; }
+.schritt { font: 400 0.74rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--leise); }
+form label { font-weight: 500; font-size: 0.92rem; margin-top: 6px; }
+form input[type="text"], form input[type="tel"], form select, form textarea { font: inherit; padding: 10px 12px; border: 1px solid #8493a5; background: #fff; color: var(--tinte); width: 100%; border-radius: 0; }
+.wahl { display: flex; flex-direction: column; gap: 8px; }
+.wahl label { margin: 0; display: block; position: relative; }
+.wahl input { position: absolute; opacity: 0; inset: 0; }
+.wahl span { display: block; border: 1px solid var(--linie); padding: 11px 14px; font-weight: 500; font-size: 1rem; }
+.wahl input:checked + span { border-color: var(--blau); background: var(--blau-hell); box-shadow: inset 4px 0 0 var(--blau); }
+.wahl input:focus-visible + span { outline: 3px solid var(--blau); outline-offset: 2px; }
+form .zeile button { border-color: var(--linie); }
+form .zeile button.voll { border-color: var(--blau); }
+.fehler { color: #a3261f; font-weight: 500; font-size: 0.92rem; }
+.klein { font-size: 0.84rem; color: var(--leise); }
+
+.fuss { background: var(--fuss); color: #aab6c3; font-size: 0.9rem; padding-block: 28px; }
+.fuss .innen { display: flex; flex-direction: column; gap: 10px; }
+.fuss p { max-width: none; }
+.fuss a { color: #e6ecf2; margin-right: 18px; }
+.entwurf { font: 400 0.74rem var(--mono); letter-spacing: 0.04em; }

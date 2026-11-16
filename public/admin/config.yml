@@ -1,0 +1,101 @@
+# Redaktionssystem (Decap CMS). Aufruf: /admin
+# Lokal: "npm run redaktion" und "npm run dev" starten, dann http://localhost:4321/admin öffnen.
+# Für den Live-Betrieb wird "backend" an das spätere Hosting angepasst.
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+locale: de
+media_folder: public/bilder/referenzen
+public_folder: /bilder/referenzen
+
+collections:
+  - name: referenzen
+    label: Referenzen
+    label_singular: Referenz
+    folder: src/content/referenzen
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    summary: "{{titel}} · {{ort}}"
+    sortable_fields: [reihenfolge, titel, ort]
+    fields:
+      - { name: titel, label: Titel, widget: string }
+      - { name: bauart, label: Bauart, widget: select, options: [Wohnen, Gewerbe, Hallen, Kleinbaustellen] }
+      - { name: region, label: Region, widget: select, options: [Kreis Mayen-Koblenz, Kreis Ahrweiler, Kreis Neuwied, Koblenz] }
+      - { name: ort, label: Ort, widget: select, options: ["Altstadt", "Altwied", "Andernach", "Anhausen", "Ariendorf", "Arienheller", "Asterstein", "Bad Bodendorf", "Bad Breisig", "Bad Hönningen", "Bad Neuenahr", "Bassenheim", "Bell", "Bendorf", "Betzing", "Block", "Bonefeld", "Brenk", "Brohl", "Brohl-Lützing", "Bubenheim", "Burgbrohl", "Caan", "Dattenberg", "Datzeroth", "Dedenbach", "Depot", "Dernbach", "Dieblich", "Ehlingen", "Ehlscheid", "Ehrenbreitstein", "Eich", "Ellingen", "Engeln", "Engers", "Escherwiese", "Ettringen", "Feldkirchen", "Franken", "Friedland", "Galenberg", "Gartenstadt", "Gierend", "Gimmigen", "Gladbach", "Glees", "Glockscheid", "Goldgrube", "Goldscheid", "Gönnersdorf", "Güls", "Gumschlag", "Hain", "Hammerstein", "Hardert", "Hausen", "Hausen (Wied)", "Heddesdorf", "Heddesdorfer Berg", "Heimbach-Weis", "Heimersheim", "Heppingen", "Hesseln", "Holzwiesen", "Horchheim", "Horchheimer Höhe", "Irlich", "Isenburg", "Jahrsfeld", "Kaltenengers", "Kärlich", "Karthause", "Kell", "Kerben", "Kesselheim", "Kettig", "Kirchesch", "Kirchwald", "Kleinmaischeid", "Kobern-Gondorf", "Koblenz", "Koisdorf", "Königsbach", "Königsfeld", "Kottenheim", "Kretz", "Kruft", "Kürrenberg", "Kurtscheid", "Lahnstein", "Lay", "Leubsdorf", "Leutesdorf", "Löhndorf", "Lohrsdorf", "Lonnig", "Lützel", "Lützingen", "Mallendar", "Mallendarer Berg", "Mayen", "Meinborn", "Melsbach", "Mendig", "Metternich", "Miesenheim", "Monreal", "Moselweiß", "Mülheim", "Mülheim-Kärlich", "Mülhofen", "Namedy", "Nauort", "Nettesürsch", "Neuendorf", "Neuwied", "Nickenich", "Niederberg", "Niederbieber", "Niederbreitbach", "Niederdürenbach", "Niederhofen", "Niederhonnefeld", "Niederlahnstein", "Niederlützingen", "Niederraden", "Niederwerth", "Niederzissen", "Nitztal", "Oberbieber", "Oberdürenbach", "Oberhonnefeld", "Oberlahnstein", "Oberraden", "Oberwerth", "Oberzissen", "Ochtendung", "Pfaffendorf", "Pfaffendorfer Höhe", "Plaidt", "Polch", "Rauental", "Rengsdorf", "Reudelsterz", "Rheinbrohl", "Rieden", "Rodenbach", "Rübenach", "Ruitsch", "Rüscheid", "Saffig", "Sankt Johann", "Sankt Sebastian", "Sayn", "Schalkenbach", "Schönstatt", "Segendorf", "Siechhaustal", "Sinzig", "Straßenhaus", "Stromberg", "Südliche Vorstadt", "Thalhausen", "Thür", "Torney", "Trimbs", "Überdorf", "Urbach", "Urbar", "Urmitz", "Urmitz-Bahnhof", "Vallendar", "Verscheid", "Volkesfeld", "Waldbreitbach", "Waldesch", "Waldorf", "Wallersheim", "Wassenach", "Wehr", "Weibern", "Weißenthurm", "Weitersburg", "Welling", "Westum", "Winningen", "Wolfenacker", "Wolken", "Wollscheid", "Wüscheid"], hint: "Tippen zum Suchen. Bestimmt den Punkt auf der Regionskarte." }
+      - { name: adresse, label: Adresse, widget: string, required: false }
+      - { name: bild, label: Foto, widget: image }
+      - { name: startseite, label: Auf der Startseite zeigen, widget: boolean, default: false }
+      - { name: reihenfolge, label: Reihenfolge, widget: number, value_type: int, default: 100, hint: "Kleinere Zahl steht weiter vorn." }
+      - { name: baujahr, label: Baujahr, widget: string, required: false }
+      - { name: flaeche, label: Fläche, widget: string, required: false, hint: "Zum Beispiel: 640 m² Wohnfläche" }
+      - { name: leistungsumfang, label: Leistungsumfang, widget: list, required: false, hint: "Zum Beispiel: Rohbau, Außenputz" }
+      - { name: beschreibung, label: Beschreibung, widget: text, required: false }
+
+  - name: seiten
+    label: Texte der Startseite
+    files:
+      - name: startseite
+        label: Seitenkopf und Bauvorhaben
+        file: src/content/startseite.json
+        fields:
+          - { name: titel, label: Überschrift, widget: string }
+          - { name: einleitung, label: Einleitung, widget: text }
+          - { name: kopfbild, label: Foto im Seitenkopf, widget: image, hint: "Querformat, Motiv rechts, links ruhiger Himmel für den Text." }
+          - { name: kopfbild_text, label: Bildunterschrift, widget: string, required: false }
+          - { name: phasen_titel, label: Überschrift Bauphasen, widget: string }
+          - { name: phasen_text, label: Text Bauphasen, widget: text }
+          - name: phasen
+            label: Bauphasen am 3D-Modell
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: text, label: Text, widget: text }
+          - { name: bauvorhaben_titel, label: Überschrift Bauvorhaben, widget: string }
+          - { name: bauvorhaben_text, label: Text Bauvorhaben, widget: text }
+      - name: leistungen
+        label: Leistungen
+        file: src/content/leistungen.json
+        fields:
+          - name: eintraege
+            label: Leistungen
+            widget: list
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: bauart, label: Passende Referenzen, widget: select, options: ["", Wohnen, Gewerbe, Hallen, Kleinbaustellen], required: false }
+      - name: unternehmen
+        label: Unternehmen
+        file: src/content/unternehmen.json
+        fields:
+          - { name: titel, label: Überschrift, widget: string }
+          - { name: text, label: Text, widget: text }
+          - { name: bild, label: Foto, widget: image }
+          - name: stationen
+            label: Firmengeschichte
+            widget: list
+            fields:
+              - { name: jahr, label: Jahr oder Abschnitt, widget: string }
+              - { name: text, label: Text, widget: string }
+          - name: partner
+            label: Partner
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: logo, label: Logo, widget: image }
+              - { name: url, label: Website, widget: string }
+      - name: kontakt
+        label: Kontaktdaten
+        file: src/content/kontakt.json
+        fields:
+          - { name: firma, label: Firma, widget: string }
+          - { name: strasse, label: Straße, widget: string }
+          - { name: ort, label: PLZ und Ort, widget: string }
+          - { name: telefon, label: Telefon, widget: string }
+          - { name: fax, label: Fax, widget: string, required: false }
+          - { name: email, label: E-Mail für Anfragen, widget: string }
+          - { name: zeiten, label: Bürozeiten, widget: string }
+          - { name: facebook, label: Facebook, widget: string, required: false }
+          - { name: instagram, label: Instagram, widget: string, required: false }
